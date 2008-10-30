@@ -1,0 +1,141 @@
+﻿2008-10-28 23:58:58,904 DEBUG Embroidr.UI.MainWindow [(null)] - OnFindActionActivated event fired
+2008-10-28 23:58:59,291 DEBUG Embroidr.UI.MainWindow [(null)] - 1 file(s) loaded.
+2008-10-28 23:58:59,292 DEBUG Embroidr.UI.MainWindow [(null)] - Path: /home/brian/patterns/bluebird_blossoms.pes
+2008-10-29 21:18:25,686 DEBUG Embroidr.UI.MainWindow [(null)] - OnFindActionActivated event fired
+2008-10-29 21:18:25,834 INFO  Embroidr.IO.FileManager [(null)] - Opening index file from path: /home/brian/code/Embroidr/index.xml
+2008-10-29 21:18:25,837 INFO  Embroidr.IO.FileManager [(null)] - Opening index from stream.
+2008-10-29 21:18:26,125 DEBUG Embroidr.UI.MainWindow [(null)] - 1 file(s) loaded.
+2008-10-29 21:18:26,126 DEBUG Embroidr.UI.MainWindow [(null)] - Path: /home/brian/patterns/bluebird_blossoms.pes
+2008-10-29 21:19:19,633 DEBUG Embroidr.UI.MainWindow [(null)] - OnFindActionActivated event fired
+2008-10-29 21:19:19,633 INFO  Embroidr.IO.FileManager [(null)] - Opening index file from path: /home/brian/code/Embroidr/index.xml
+2008-10-29 21:19:19,643 FATAL Embroidr.IO.FileManager [(null)] - An exception occured when opening the index file.
+2008-10-29 21:19:19,644 FATAL Embroidr.IO.FileManager [(null)] - Sharing violation on path /home/brian/code/Embroidr/index.xml
+2008-10-29 21:19:19,653 FATAL Embroidr.IO.FileManager [(null)] -   at System.IO.FileStream..ctor (System.String path, FileMode mode, FileAccess access, FileShare share, Int32 bufferSize, Boolean anonymous, FileOptions options) [0x00000] 
+  at System.IO.FileStream..ctor (System.String path, FileMode mode) [0x00000] 
+  at (wrapper remoting-invoke-with-check) System.IO.FileStream:.ctor (string,System.IO.FileMode)
+  at Embroidr.IO.FileManager.OpenIndexFile (System.String path) [0x00024] in /home/brian/Documents/code/embroidr/src/Embroidr/IO/FileManager.cs:36 
+2008-10-29 21:23:38,795 DEBUG Embroidr.UI.MainWindow [(null)] - OnFindActionActivated event fired
+2008-10-29 21:23:38,938 INFO  Embroidr.IO.FileManager [(null)] - Opening index file from path: /home/brian/code/Embroidr/index.xml
+2008-10-29 21:23:38,941 INFO  Embroidr.IO.FileManager [(null)] - Opening index from stream.
+2008-10-29 21:23:39,212 DEBUG Embroidr.UI.MainWindow [(null)] - 1 file(s) loaded.
+2008-10-29 21:23:39,213 DEBUG Embroidr.UI.MainWindow [(null)] - Path: /home/brian/patterns/bluebird_blossoms.pes
+2008-10-29 21:23:42,365 DEBUG Embroidr.UI.MainWindow [(null)] - OnFindActionActivated event fired
+2008-10-29 21:23:42,365 INFO  Embroidr.IO.FileManager [(null)] - Opening index file from path: /home/brian/code/Embroidr/index.xml
+2008-10-29 21:23:42,365 INFO  Embroidr.IO.FileManager [(null)] - Opening index from stream.
+2008-10-29 21:23:42,368 DEBUG Embroidr.UI.MainWindow [(null)] - 1 file(s) loaded.
+2008-10-29 21:23:42,369 DEBUG Embroidr.UI.MainWindow [(null)] - Path: /home/brian/patterns/bluebird_blossoms.pes
+2008-10-29 21:23:49,957 DEBUG Embroidr.UI.MainWindow [(null)] - OnFindActionActivated event fired
+2008-10-29 21:23:49,957 INFO  Embroidr.IO.FileManager [(null)] - Opening index file from path: /home/brian/code/Embroidr/index.xml
+2008-10-29 21:23:49,957 INFO  Embroidr.IO.FileManager [(null)] - Opening index from stream.
+2008-10-29 21:23:49,959 DEBUG Embroidr.UI.MainWindow [(null)] - 1 file(s) loaded.
+2008-10-29 21:23:49,959 DEBUG Embroidr.UI.MainWindow [(null)] - Path: /home/brian/patterns/bluebird_blossoms.pes
+2008-10-29 21:23:50,797 DEBUG Embroidr.UI.MainWindow [(null)] - OnFindActionActivated event fired
+2008-10-29 21:23:50,797 INFO  Embroidr.IO.FileManager [(null)] - Opening index file from path: /home/brian/code/Embroidr/index.xml
+2008-10-29 21:23:50,798 INFO  Embroidr.IO.FileManager [(null)] - Opening index from stream.
+2008-10-29 21:23:50,799 DEBUG Embroidr.UI.MainWindow [(null)] - 1 file(s) loaded.
+2008-10-29 21:23:50,800 DEBUG Embroidr.UI.MainWindow [(null)] - Path: /home/brian/patterns/bluebird_blossoms.pes
+2008-10-29 21:44:15,828 DEBUG Embroidr.UI.MainWindow [(null)] - OnFindActionActivated event fired
+2008-10-29 21:44:15,945 INFO  Embroidr.IO.FileManager [(null)] - Opening index file from path: /home/brian/code/Embroidr/index.xml
+2008-10-29 21:44:15,948 INFO  Embroidr.IO.FileManager [(null)] - Opening index from stream.
+2008-10-29 21:44:16,211 DEBUG Embroidr.UI.MainWindow [(null)] - 1 file(s) loaded.
+2008-10-29 21:44:16,212 DEBUG Embroidr.UI.MainWindow [(null)] - Path: /home/brian/patterns/bluebird_blossoms.pes
+2008-10-29 21:48:48,160 DEBUG Embroidr.UI.MainWindow [(null)] - OnFindActionActivated event fired
+2008-10-29 21:48:48,277 INFO  Embroidr.IO.FileManager [(null)] - Opening index file from path: /home/brian/code/Embroidr/index.xml
+2008-10-29 21:48:48,279 INFO  Embroidr.IO.FileManager [(null)] - Opening index from stream.
+2008-10-29 21:48:48,550 DEBUG Embroidr.UI.MainWindow [(null)] - 1 file(s) loaded.
+2008-10-29 21:48:48,552 DEBUG Embroidr.UI.MainWindow [(null)] - Path: /home/brian/patterns/bluebird_blossoms.pes
+2008-10-29 21:48:52,538 INFO  Embroidr.IO.FileManager [(null)] - Saving index file to path: /home/brian/code/Embroidr/index.xml
+2008-10-29 21:48:52,539 INFO  Embroidr.IO.FileManager [(null)] - Saving index file to stream.
+2008-10-29 21:48:56,441 DEBUG Embroidr.UI.MainWindow [(null)] - OnFindActionActivated event fired
+2008-10-29 21:48:56,441 INFO  Embroidr.IO.FileManager [(null)] - Opening index file from path: /home/brian/code/Embroidr/index.xml
+2008-10-29 21:48:56,449 FATAL Embroidr.IO.FileManager [(null)] - An exception occured when opening the index file.
+2008-10-29 21:48:56,450 FATAL Embroidr.IO.FileManager [(null)] - Sharing violation on path /home/brian/code/Embroidr/index.xml
+2008-10-29 21:48:56,460 FATAL Embroidr.IO.FileManager [(null)] -   at System.IO.FileStream..ctor (System.String path, FileMode mode, FileAccess access, FileShare share, Int32 bufferSize, Boolean anonymous, FileOptions options) [0x00000] 
+  at System.IO.FileStream..ctor (System.String path, FileMode mode) [0x00000] 
+  at (wrapper remoting-invoke-with-check) System.IO.FileStream:.ctor (string,System.IO.FileMode)
+  at Embroidr.IO.FileManager.OpenIndexFile (System.String path) [0x00028] in /home/brian/Documents/code/embroidr/src/Embroidr/IO/FileManager.cs:39 
+2008-10-29 21:53:25,908 DEBUG Embroidr.UI.MainWindow [(null)] - OnFindActionActivated event fired
+2008-10-29 21:53:26,025 INFO  Embroidr.IO.FileManager [(null)] - Opening index file from path: /home/brian/code/Embroidr/index.xml
+2008-10-29 21:53:26,029 INFO  Embroidr.IO.FileManager [(null)] - Opening index from stream.
+2008-10-29 21:53:26,303 DEBUG Embroidr.UI.MainWindow [(null)] - 1 file(s) loaded.
+2008-10-29 21:53:26,305 DEBUG Embroidr.UI.MainWindow [(null)] - Path: /home/brian/patterns/bluebird_blossoms.pes
+2008-10-29 21:53:28,445 INFO  Embroidr.IO.FileManager [(null)] - Saving index file to path: /home/brian/code/Embroidr/index.xml
+2008-10-29 21:53:28,446 INFO  Embroidr.IO.FileManager [(null)] - Saving index file to stream.
+2008-10-29 22:20:49,125 DEBUG Embroidr.UI.MainWindow [(null)] - OnFindActionActivated event fired
+2008-10-29 22:20:49,244 INFO  Embroidr.IO.FileManager [(null)] - Opening index file from path: /home/brian/code/Embroidr/index.xml
+2008-10-29 22:20:49,247 INFO  Embroidr.IO.FileManager [(null)] - Opening index from stream.
+2008-10-29 22:20:49,509 DEBUG Embroidr.UI.MainWindow [(null)] - 2 file(s) loaded.
+2008-10-29 22:20:49,511 DEBUG Embroidr.UI.MainWindow [(null)] - Path: /home/brian/patterns/bluebird_blossoms.pes
+2008-10-29 22:20:49,512 DEBUG Embroidr.UI.MainWindow [(null)] - Path: /home/brian/patterns/test.pes
+2008-10-29 22:20:56,911 INFO  Embroidr.IO.FileManager [(null)] - Saving index file to path: /home/brian/code/Embroidr/index.xml
+2008-10-29 22:20:56,912 INFO  Embroidr.IO.FileManager [(null)] - Saving index file to stream.
+2008-10-29 22:20:57,016 INFO  Embroidr.IO.FileManager [(null)] - Closing the XmlTextWriter.
+2008-10-29 22:21:02,989 DEBUG Embroidr.UI.MainWindow [(null)] - OnFindActionActivated event fired
+2008-10-29 22:21:02,990 INFO  Embroidr.IO.FileManager [(null)] - Opening index file from path: /home/brian/code/Embroidr/index.xml
+2008-10-29 22:21:02,990 INFO  Embroidr.IO.FileManager [(null)] - Opening index from stream.
+2008-10-29 22:21:02,992 DEBUG Embroidr.UI.MainWindow [(null)] - 3 file(s) loaded.
+2008-10-29 22:21:02,992 DEBUG Embroidr.UI.MainWindow [(null)] - Path: /home/brian/patterns/bluebird_blossoms.pes
+2008-10-29 22:21:02,992 DEBUG Embroidr.UI.MainWindow [(null)] - Path: /home/brian/patterns/test.pes
+2008-10-29 22:21:02,992 DEBUG Embroidr.UI.MainWindow [(null)] - Path: /home/brian/patterns/test.pes
+2008-10-29 22:21:06,541 INFO  Embroidr.IO.FileManager [(null)] - Saving index file to path: /home/brian/code/Embroidr/index.xml
+2008-10-29 22:21:06,542 INFO  Embroidr.IO.FileManager [(null)] - Saving index file to stream.
+2008-10-29 22:21:06,543 INFO  Embroidr.IO.FileManager [(null)] - Closing the XmlTextWriter.
+2008-10-29 22:21:11,437 INFO  Embroidr.IO.FileManager [(null)] - Saving index file to path: /home/brian/code/Embroidr/index.xml
+2008-10-29 22:21:11,438 INFO  Embroidr.IO.FileManager [(null)] - Saving index file to stream.
+2008-10-29 22:21:11,439 INFO  Embroidr.IO.FileManager [(null)] - Closing the XmlTextWriter.
+2008-10-29 22:21:15,533 DEBUG Embroidr.UI.MainWindow [(null)] - OnFindActionActivated event fired
+2008-10-29 22:21:15,533 INFO  Embroidr.IO.FileManager [(null)] - Opening index file from path: /home/brian/code/Embroidr/index.xml
+2008-10-29 22:21:15,533 INFO  Embroidr.IO.FileManager [(null)] - Opening index from stream.
+2008-10-29 22:21:15,539 DEBUG Embroidr.UI.MainWindow [(null)] - 5 file(s) loaded.
+2008-10-29 22:21:15,539 DEBUG Embroidr.UI.MainWindow [(null)] - Path: /home/brian/patterns/bluebird_blossoms.pes
+2008-10-29 22:21:15,540 DEBUG Embroidr.UI.MainWindow [(null)] - Path: /home/brian/patterns/test.pes
+2008-10-29 22:21:15,540 DEBUG Embroidr.UI.MainWindow [(null)] - Path: /home/brian/patterns/test.pes
+2008-10-29 22:21:15,540 DEBUG Embroidr.UI.MainWindow [(null)] - Path: /home/brian/patterns/test.pes
+2008-10-29 22:21:15,540 DEBUG Embroidr.UI.MainWindow [(null)] - Path: /home/brian/patterns/test.pes
+2008-10-29 22:21:22,965 INFO  Embroidr.IO.FileManager [(null)] - Saving index file to path: /home/brian/code/Embroidr/index.xml
+2008-10-29 22:21:22,966 INFO  Embroidr.IO.FileManager [(null)] - Saving index file to stream.
+2008-10-29 22:21:22,968 INFO  Embroidr.IO.FileManager [(null)] - Closing the XmlTextWriter.
+2008-10-29 22:21:23,981 INFO  Embroidr.IO.FileManager [(null)] - Saving index file to path: /home/brian/code/Embroidr/index.xml
+2008-10-29 22:21:23,981 INFO  Embroidr.IO.FileManager [(null)] - Saving index file to stream.
+2008-10-29 22:21:23,983 INFO  Embroidr.IO.FileManager [(null)] - Closing the XmlTextWriter.
+2008-10-29 22:21:25,277 INFO  Embroidr.IO.FileManager [(null)] - Saving index file to path: /home/brian/code/Embroidr/index.xml
+2008-10-29 22:21:25,277 INFO  Embroidr.IO.FileManager [(null)] - Saving index file to stream.
+2008-10-29 22:21:25,279 INFO  Embroidr.IO.FileManager [(null)] - Closing the XmlTextWriter.
+2008-10-29 22:21:26,253 DEBUG Embroidr.UI.MainWindow [(null)] - OnFindActionActivated event fired
+2008-10-29 22:21:26,254 INFO  Embroidr.IO.FileManager [(null)] - Opening index file from path: /home/brian/code/Embroidr/index.xml
+2008-10-29 22:21:26,254 INFO  Embroidr.IO.FileManager [(null)] - Opening index from stream.
+2008-10-29 22:21:26,256 DEBUG Embroidr.UI.MainWindow [(null)] - 8 file(s) loaded.
+2008-10-29 22:21:26,257 DEBUG Embroidr.UI.MainWindow [(null)] - Path: /home/brian/patterns/bluebird_blossoms.pes
+2008-10-29 22:21:26,257 DEBUG Embroidr.UI.MainWindow [(null)] - Path: /home/brian/patterns/test.pes
+2008-10-29 22:21:26,258 DEBUG Embroidr.UI.MainWindow [(null)] - Path: /home/brian/patterns/test.pes
+2008-10-29 22:21:26,258 DEBUG Embroidr.UI.MainWindow [(null)] - Path: /home/brian/patterns/test.pes
+2008-10-29 22:21:26,258 DEBUG Embroidr.UI.MainWindow [(null)] - Path: /home/brian/patterns/test.pes
+2008-10-29 22:21:26,258 DEBUG Embroidr.UI.MainWindow [(null)] - Path: /home/brian/patterns/test.pes
+2008-10-29 22:21:26,258 DEBUG Embroidr.UI.MainWindow [(null)] - Path: /home/brian/patterns/test.pes
+2008-10-29 22:21:26,258 DEBUG Embroidr.UI.MainWindow [(null)] - Path: /home/brian/patterns/test.pes
+2008-10-29 22:49:25,241 DEBUG Embroidr.UI.MainWindow [(null)] - OnFindActionActivated event fired
+2008-10-29 22:49:25,357 INFO  Embroidr.IO.FileManager [(null)] - Opening index file from path: ../../../../Data/index.xml
+2008-10-29 22:49:25,358 FATAL Embroidr.IO.FileManager [(null)] - Could not open file path. File does not exist.
+2008-10-29 22:50:04,360 DEBUG Embroidr.UI.MainWindow [(null)] - OnFindActionActivated event fired
+2008-10-29 22:50:04,475 INFO  Embroidr.IO.FileManager [(null)] - Opening index file from path: ../../../../data/index.xml
+2008-10-29 22:50:04,478 INFO  Embroidr.IO.FileManager [(null)] - Opening index from stream.
+2008-10-29 22:50:04,827 DEBUG Embroidr.UI.MainWindow [(null)] - 1 file(s) loaded.
+2008-10-29 22:50:04,829 DEBUG Embroidr.UI.MainWindow [(null)] - Path: /home/brian/patterns/bluebird_blossoms.pes
+2008-10-29 22:50:08,403 INFO  Embroidr.IO.FileManager [(null)] - Saving index file to path: ../../../../data/index.xml
+2008-10-29 22:50:08,404 INFO  Embroidr.IO.FileManager [(null)] - Saving index file to stream.
+2008-10-29 22:50:08,462 INFO  Embroidr.IO.FileManager [(null)] - Closing the XmlTextWriter.
+2008-10-29 22:50:12,114 DEBUG Embroidr.UI.MainWindow [(null)] - OnFindActionActivated event fired
+2008-10-29 22:50:12,114 INFO  Embroidr.IO.FileManager [(null)] - Opening index file from path: ../../../../data/index.xml
+2008-10-29 22:50:12,114 INFO  Embroidr.IO.FileManager [(null)] - Opening index from stream.
+2008-10-29 22:50:12,116 DEBUG Embroidr.UI.MainWindow [(null)] - 2 file(s) loaded.
+2008-10-29 22:50:12,116 DEBUG Embroidr.UI.MainWindow [(null)] - Path: /home/brian/patterns/bluebird_blossoms.pes
+2008-10-29 22:50:12,116 DEBUG Embroidr.UI.MainWindow [(null)] - Path: /home/brian/patterns/test.pes
+2008-10-29 22:50:53,073 DEBUG Embroidr.UI.MainWindow [(null)] - OnFindActionActivated event fired
+2008-10-29 22:50:53,210 INFO  Embroidr.IO.FileManager [(null)] - Opening index file from path: ../../../../data/index.xml
+2008-10-29 22:50:53,214 INFO  Embroidr.IO.FileManager [(null)] - Opening index from stream.
+2008-10-29 22:50:53,539 DEBUG Embroidr.UI.MainWindow [(null)] - 2 file(s) loaded.
+2008-10-29 22:50:53,541 DEBUG Embroidr.UI.MainWindow [(null)] - Path: /home/brian/patterns/bluebird_blossoms.pes
+2008-10-29 22:50:53,541 DEBUG Embroidr.UI.MainWindow [(null)] - Path: /home/brian/patterns/test.pes
+2008-10-29 22:50:55,691 INFO  Embroidr.IO.FileManager [(null)] - Saving index file to path: ../../../../data/index.xml
+2008-10-29 22:50:55,693 INFO  Embroidr.IO.FileManager [(null)] - Saving index file to stream.
+2008-10-29 22:50:55,749 INFO  Embroidr.IO.FileManager [(null)] - Closing the XmlTextWriter.

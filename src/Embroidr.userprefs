@@ -1,0 +1,26 @@
+﻿<UserCombinePreferences version="1.0" filename="/home/brian/Documents/code/embroidr/src/Embroidr.mds">
+  <Files>
+    <File name="Welcome" />
+    <File name="Embroidr/UI/MainWindow.cs" line="13" column="7" />
+  </Files>
+  <Views>
+    <ViewMemento id="ProjectPad">
+      <Node expanded="True">
+        <Node name="Embroidr" expanded="True">
+          <Node name="References" expanded="True" />
+          <Node name="UI" expanded="True" selected="True" />
+        </Node>
+      </Node>
+    </ViewMemento>
+    <ViewMemento id="ClassPad">
+      <Node />
+    </ViewMemento>
+    <ViewMemento id="MonoDevelop.NUnit.TestPad">
+      <Node />
+    </ViewMemento>
+  </Views>
+  <Properties>
+    <Property key="ActiveWindow" value="/home/brian/Documents/code/embroidr/src/Embroidr/UI/MainWindow.cs" />
+    <Property key="ActiveConfiguration" value="Debug" />
+  </Properties>
+</UserCombinePreferences>
