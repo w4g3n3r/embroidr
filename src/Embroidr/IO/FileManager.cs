@@ -10,6 +10,9 @@ using log4net;
 using System.Xml;
 using System.Xml.Serialization;
 using System.Configuration;
+using System.Collections;
+using System.Security.Cryptography;
+using System.Text;
 
 namespace Embroidr.IO
 {	
@@ -164,6 +167,81 @@ namespace Embroidr.IO
 			}
 			log.Fatal("Could not write to the index file stream.");
 			throw new IOException("The index file stream could not be written to.");			
+		}
+		
+		//TODO: Finish refreshIndexFile
+		//  - Duplicates get added to the index each time this function runs.
+		//  - Initial version of this function will only support pes files.
+		//  - Need to generate display icons in this step.
+		//  - Add error checking... refactor.
+		public static void refreshIndexFile(string[] paths, ref IndexFile index)
+		{
+			throw new NotImplementedException("The function refreshIndexFile is not in a finished state.");
+			Hashtable fileLib = new Hashtable();
+			log.Info("Refreshing index file.");
+			foreach (DataFile f in index.DataFiles)
+			{
+				if (!fileLib.ContainsKey(f.FileHash)) fileLib.Add(f.FileHash, f);
+				if (!File.Exists(f.FilePath) && f.Status != FileStatus.Deleted)
+				{
+					log.DebugFormat("Existing file has been removed: {0}", f.FilePath);
+					f.Status = FileStatus.Deleted;
+				}
+			}
+			foreach (string path in paths)
+			{
+				log.Info("Scanning folders for new files.");
+				if (Directory.Exists(path))
+				{
+					log.DebugFormat("Scanning: {0}", path);
+					string[] files = Directory.GetFiles(path, "*.pes", SearchOption.AllDirectories);
+					foreach (string file in files)
+					{
+						bool isDupe = false;
+						FileInfo fi = new FileInfo(file);
+						if (file.EndsWith(".pes"))
+						{
+							log.DebugFormat("Hashing file: {0}", file);
+							string hash = md5(file);
+							log.Debug(hash);
+							DataFile newDf = new DataFile(fi.Name, file);
+							newDf.FileHash = hash;
+							
+							if (fileLib.ContainsKey(hash))
+							{
+								log.DebugFormat("Found existing hash: {0}", hash);
+								DataFile f = (DataFile)fileLib[hash];
+								log.DebugFormat("Existing hash belongs to: {0}", f.FilePath);
+								if (f.FilePath == file) continue;
+								log.Debug("File paths are different.");
+								newDf.Status = FileStatus.Duplicate;	
+								isDupe = true;
+							}
+							else
+								newDf.Status = FileStatus.InLibrary;
+							
+							log.DebugFormat("Adding new file: {0}", fi.Name);
+							index.DataFiles.Add(newDf);
+							if (!isDupe) fileLib.Add(hash, newDf);							
+						}
+					}
+				}
+			}
+		}
+		
+		//TODO: Add error checking to FileManager.md5 method.
+		public static string md5(string path)
+		{
+			if (File.Exists(path))
+			{
+				StringBuilder sb = new StringBuilder();
+				FileStream fs = new FileStream(path, FileMode.Open, FileAccess.Read);
+				MD5 md5 = new MD5CryptoServiceProvider();
+				byte[] hash = md5.ComputeHash(fs);
+				foreach (byte b in hash) sb.AppendFormat("{0:x2}", b);
+				return sb.ToString();
+			}
+			return string.Empty;
 		}
 	}
 }

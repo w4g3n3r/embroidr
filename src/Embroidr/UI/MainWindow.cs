@@ -55,7 +55,7 @@ namespace Embroidr.UI
 		{
 			if (index != null)
 			{
-				index.DataFiles.Add(new DataFile("Test file", "/home/brian/patterns/test.pes"));
+				FileManager.refreshIndexFile(Configuration.RepositoryPath.Split(';'), ref index);
 				FileManager.SaveIndexFile(index, Configuration.IndexFilePath);
 			}
 		}

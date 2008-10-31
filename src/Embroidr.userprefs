@@ -1,14 +1,20 @@
 ﻿<UserCombinePreferences version="1.0" filename="/home/brian/Documents/code/embroidr/src/Embroidr.mds">
   <Files>
     <File name="Welcome" />
-    <File name="Embroidr/UI/MainWindow.cs" line="13" column="7" />
+    <File name="Embroidr/UI/MainWindow.cs" line="58" column="45" />
+    <File name="Embroidr/IO/FileManager.cs" line="184" column="70" />
+    <File name="Embroidr/UI/Main.cs" line="18" column="30" />
+    <File name="Embroidr/IO/IndexFile.cs" line="79" column="13" />
+    <File name="Embroidr/UI/app.config" line="1" column="1" />
   </Files>
   <Views>
     <ViewMemento id="ProjectPad">
       <Node expanded="True">
         <Node name="Embroidr" expanded="True">
-          <Node name="References" expanded="True" />
-          <Node name="UI" expanded="True" selected="True" />
+          <Node name="IO" expanded="True">
+            <Node name="FileManager.cs" selected="True" />
+          </Node>
+          <Node name="UI" expanded="True" />
         </Node>
       </Node>
     </ViewMemento>
@@ -20,7 +26,7 @@
     </ViewMemento>
   </Views>
   <Properties>
-    <Property key="ActiveWindow" value="/home/brian/Documents/code/embroidr/src/Embroidr/UI/MainWindow.cs" />
+    <Property key="ActiveWindow" value="/home/brian/Documents/code/embroidr/src/Embroidr/IO/FileManager.cs" />
     <Property key="ActiveConfiguration" value="Debug" />
   </Properties>
 </UserCombinePreferences>

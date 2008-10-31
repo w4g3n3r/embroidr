@@ -1,1 +1,16 @@
-﻿<?xml version="1.0" encoding="utf-8"?><files xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="Embroidr.FileManager"><file name="bluebird_blossoms.pes" path="/home/brian/patterns/bluebird_blossoms.pes" md5="d797686f029ac23af9dcc2e55d0a2a78" svg="/home/brian/patterns/svg/bluebird_blossoms.svg" png="/home/brian/patterns/svg/bluebird_blossoms.png" /><file name="Test file" path="/home/brian/patterns/test.pes" /><file name="Test file" path="/home/brian/patterns/test.pes" /></files>
+﻿<?xml version="1.0" encoding="utf-8"?>
+<files xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="Embroidr.FileManager">
+	<file name="bluebird_blossoms.pes" path="/home/brian/patterns/bluebird_blossoms.pes" md5="d797686f029ac23af9dcc2e55d0a2a78" svg="/home/brian/patterns/svg/bluebird_blossoms.svg" png="/home/brian/patterns/svg/bluebird_blossoms.png" status="InLibrary" />
+	<file name="Clown.pes" path="../../../../data/patterns/Clown.pes" md5="31b64abf8b826837fbbf093bff251643" status="InLibrary" />
+	<file name="GrapeVine.pes" path="../../../../data/patterns/GrapeVine.pes" md5="2395478ebb16e5e29a2750cebb756559" status="InLibrary" />
+	<file name="SPIDER3.pes" path="../../../../data/patterns/SPIDER3.pes" md5="4850509c997ca5ae329d42eada186b0f" status="Deleted" />
+	<file name="Teapot.pes" path="../../../../data/patterns/Teapot.pes" md5="b87c5aa494d604988deb7ced326aa773" status="InLibrary" />
+	<file name="bluebird_blossoms.pes" path="../../../../data/patterns/bluebird_blossoms.pes" md5="d797686f029ac23af9dcc2e55d0a2a78" status="Duplicate" />
+	<file name="corona.pes" path="../../../../data/patterns/corona.pes" md5="e0726f138b41a8a0aec1c8cfb4388ae6" status="InLibrary" />
+	<file name="peakcock.pes" path="../../../../data/patterns/peakcock.pes" md5="a400136c1080f696263d5185ef128233" status="InLibrary" />
+	<file name="rooster.pes" path="../../../../data/patterns/rooster.pes" md5="1d12148e78d5ecf6ebc9a14a7ab49cf8" status="InLibrary" />
+	<file name="rose_vine.pes" path="../../../../data/patterns/rose_vine.pes" md5="847ab0e7db200414b453ca21fd08ccaf" status="InLibrary" />
+	<file name="SPIDER10.pes" path="../../../../data/patterns/SPIDER10.pes" md5="5a4f842f3906f348399315663e93acb2" status="InLibrary" />
+	<file name="Teapot (copy).pes" path="../../../../data/patterns/Teapot (copy).pes" md5="b87c5aa494d604988deb7ced326aa773" status="Duplicate" />
+	<file name="bluebird_blossoms.pes" path="../../../../data/patterns/bluebird_blossoms.pes" md5="d797686f029ac23af9dcc2e55d0a2a78" status="Duplicate" />
+</files>

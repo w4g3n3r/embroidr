@@ -28,6 +28,7 @@ namespace Embroidr.IO
 		private string _fileHash;
 		private string _svgPath;
 		private string _iconPath;
+		private FileStatus _status;
 		
 		public DataFile(){}
 		public DataFile(string name, string path)
@@ -70,5 +71,19 @@ namespace Embroidr.IO
 			get { return _iconPath; }
 			set { _iconPath = value; }
 		}
+		
+		[System.Xml.Serialization.XmlAttributeAttribute(AttributeName="status", Namespace="")]
+		public FileStatus Status
+		{
+			get { return _status; }
+			set { _status = value; }
+		}
     }
+	
+	public enum FileStatus
+	{
+		InLibrary,
+		Deleted,
+		Duplicate
+	}
 }
