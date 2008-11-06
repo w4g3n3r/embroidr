@@ -17,6 +17,7 @@ namespace Embroidr.UI
 			// Load configuration settings.
 			Embroidr.UI.Configuration.RepositoryPath = ConfigurationManager.AppSettings["RepositoryPath"];
 			Embroidr.UI.Configuration.IndexFilePath = ConfigurationManager.AppSettings["IndexFilePath"];
+			Embroidr.UI.Configuration.DesignFormatsPath = ConfigurationManager.AppSettings["DesignFormatsPath"];
 			Embroidr.UI.Configuration.FormatXmlOutput = 
 				(ConfigurationManager.AppSettings["FormatXmlOutput"].ToLower() == "true");		
 			
@@ -32,5 +33,6 @@ namespace Embroidr.UI
 		public static string RepositoryPath = string.Empty;
 		public static string IndexFilePath = string.Empty;
 		public static bool FormatXmlOutput = false;
+		public static string DesignFormatsPath = string.Empty;
 	}
 }

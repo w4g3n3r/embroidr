@@ -8,9 +8,11 @@ using System.IO;
 using System.Text;
 using System.Reflection;
 using System.Runtime.InteropServices;
+using System.Collections.Generic;
 using Gtk;
 using Gdk;
 //using Embroidery.Formats.Pes;
+using Embroidr.Common;
 using Embroidr.IO;
 using Cairo;
 using Rsvg;
@@ -22,6 +24,7 @@ namespace Embroidr.UI
 	{	
 		public static readonly ILog log = LogManager.GetLogger(typeof(MainWindow));
 		IndexFile index = null;
+		private List<IDesignFormat> availableFormats;
 		//PesFile pes = null;
 	//	Gtk.TextView txtOutput;
 	//	Gtk.FileChooserButton btnFile;
@@ -29,6 +32,36 @@ namespace Embroidr.UI
 		public MainWindow (): base (Gtk.WindowType.Toplevel)
 		{
 			Build ();
+			
+			availableFormats = new List<IDesignFormat>();
+			
+			if (Directory.Exists(Configuration.DesignFormatsPath))
+			{
+				string[] files = Directory.GetFiles(Configuration.DesignFormatsPath, "*.dll");
+				foreach(string f in files)
+				{
+					Assembly a = Assembly.LoadFile(f);
+					Type[] types = a.GetTypes();
+					foreach(Type t in types)
+					{
+						if(t.GetInterface("IDesignFormat") != null)
+						{
+							if(t.GetCustomAttributes(typeof(DesignFormatAttribute), false).Length == 1)
+							{
+								log.InfoFormat("Loaded design format {0}", f);
+								
+								availableFormats.Add((IDesignFormat)Activator.CreateInstance(t));
+							}
+						}
+					}
+				}
+			}
+			
+			object[] attributes = availableFormats[0].GetType().GetCustomAttributes(false);
+			foreach(DesignFormatAttribute dfa in attributes)
+			{
+				log.InfoFormat("Attribute: {0}", dfa.Name);
+			}
 		}
 		
 		protected void OnDeleteEvent (object sender, DeleteEventArgs a)
