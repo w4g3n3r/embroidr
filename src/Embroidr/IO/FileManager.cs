@@ -75,6 +75,7 @@ namespace Embroidr.IO
 			if (s.CanRead && s.CanSeek)
 			{
 				s.Position = 0;
+				log.Info("Deserializing index file.");
 				XmlSerializer xs = new XmlSerializer(typeof(IndexFile));
 				return (IndexFile) xs.Deserialize(s);
 			}

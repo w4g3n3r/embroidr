@@ -1,22 +1,20 @@
 ﻿<UserCombinePreferences version="1.0" filename="/home/brian/Documents/code/embroidr/src/Embroidr.mds">
   <Files>
     <File name="Welcome" />
-    <File name="Embroidr/UI/MainWindow.cs" line="58" column="45" />
+    <File name="Embroidr/UI/MainWindow.cs" line="60" column="44" />
     <File name="Embroidr/IO/FileManager.cs" line="184" column="70" />
-    <File name="Embroidr/UI/Main.cs" line="28" column="3" />
+    <File name="Embroidr/UI/Main.cs" line="20" column="104" />
     <File name="Embroidr/IO/IndexFile.cs" line="79" column="13" />
-    <File name="Embroidr/UI/app.config" line="34" column="49" />
-    <File name="Embroider.Common.DesignFormats/Pes.cs" line="1" column="1" />
-    <File name="Embroider.Common.DesignFormats/AssemblyInfo.cs" line="30" column="32" />
+    <File name="Embroidr/UI/app.config" line="34" column="13" />
   </Files>
   <Views>
     <ViewMemento id="ProjectPad">
       <Node expanded="True">
         <Node name="Embroidr" expanded="True">
+          <Node name="References" expanded="True" selected="True" />
           <Node name="UI" expanded="True" />
         </Node>
-        <Node name="Embroidr.Common" expanded="True" />
-        <Node name="Pes" expanded="True" selected="True" />
+        <Node name="Pes" expanded="True" />
       </Node>
     </ViewMemento>
     <ViewMemento id="ClassPad">
@@ -27,7 +25,7 @@
     </ViewMemento>
   </Views>
   <Properties>
-    <Property key="ActiveWindow" value="/home/brian/Documents/code/embroidr/src/Embroidr/UI/app.config" />
+    <Property key="ActiveWindow" value="/home/brian/Documents/code/embroidr/src/Embroidr/UI/MainWindow.cs" />
     <Property key="ActiveConfiguration" value="Debug" />
   </Properties>
 </UserCombinePreferences>

@@ -33,11 +33,11 @@ namespace Embroidr.UI {
         
         private Gtk.ScrolledWindow GtkScrolledWindow1;
         
-        private Gtk.TreeView treeview1;
+        private Gtk.TreeView pesTree;
         
         private Gtk.ScrolledWindow GtkScrolledWindow;
         
-        private Gtk.NodeView nodeview1;
+        private Gtk.NodeView pesView;
         
         private Gtk.Statusbar statusbar1;
         
@@ -99,11 +99,11 @@ namespace Embroidr.UI {
             this.GtkScrolledWindow1.Name = "GtkScrolledWindow1";
             this.GtkScrolledWindow1.ShadowType = ((Gtk.ShadowType)(1));
             // Container child GtkScrolledWindow1.Gtk.Container+ContainerChild
-            this.treeview1 = new Gtk.TreeView();
-            this.treeview1.CanFocus = true;
-            this.treeview1.Name = "treeview1";
-            this.treeview1.HeadersClickable = true;
-            this.GtkScrolledWindow1.Add(this.treeview1);
+            this.pesTree = new Gtk.TreeView();
+            this.pesTree.CanFocus = true;
+            this.pesTree.Name = "pesTree";
+            this.pesTree.HeadersClickable = true;
+            this.GtkScrolledWindow1.Add(this.pesTree);
             this.vbox2.Add(this.GtkScrolledWindow1);
             Gtk.Box.BoxChild w6 = ((Gtk.Box.BoxChild)(this.vbox2[this.GtkScrolledWindow1]));
             w6.Position = 0;
@@ -115,11 +115,11 @@ namespace Embroidr.UI {
             this.GtkScrolledWindow.Name = "GtkScrolledWindow";
             this.GtkScrolledWindow.ShadowType = ((Gtk.ShadowType)(1));
             // Container child GtkScrolledWindow.Gtk.Container+ContainerChild
-            this.nodeview1 = new Gtk.NodeView();
-            this.nodeview1.CanFocus = true;
-            this.nodeview1.Name = "nodeview1";
-            this.nodeview1.HeadersClickable = true;
-            this.GtkScrolledWindow.Add(this.nodeview1);
+            this.pesView = new Gtk.NodeView();
+            this.pesView.CanFocus = true;
+            this.pesView.Name = "pesView";
+            this.pesView.HeadersClickable = true;
+            this.GtkScrolledWindow.Add(this.pesView);
             this.hpaned2.Add(this.GtkScrolledWindow);
             this.vbox1.Add(this.hpaned2);
             Gtk.Box.BoxChild w10 = ((Gtk.Box.BoxChild)(this.vbox1[this.hpaned2]));

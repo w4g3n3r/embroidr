@@ -35,7 +35,7 @@ namespace Embroider.Common.DesignFormats
 			get
 			{
 				//TODO: Create a proper exception.
-				if (File.Exists(_filePath)) throw new Exception();
+				if (!File.Exists(_filePath)) throw new FileNotFoundException("Pes file wasn't found", _filePath);
 				FileInfo fi = new FileInfo(_filePath);
 				return fi.Name;
 			}
@@ -89,14 +89,22 @@ namespace Embroider.Common.DesignFormats
 			get { return _stitchBlocks.AsReadOnly(); }
 		}
 		
-		public Pes(){}
+		public Pes()
+		{
+			_threadColors = new List<ThreadColor>();
+			_stitchBlocks = new List<StitchBlock>();
+		}
 		
 		public void LoadFromFile(string path)
 		{			
 			if (path == null) throw new ArgumentNullException("path");
 			if (!File.Exists(path)) throw new FileNotFoundException("File not found.", path);
 			
+			_threadColors.Clear();
+			_stitchBlocks.Clear();
+			
 			_filePath = path;
+			string pesVersion;
 			
 			//log.InfoFormat("Reading file: {0}", _filePath);
 			BinaryReader pesData = new BinaryReader(File.OpenRead(_filePath));
@@ -105,7 +113,7 @@ namespace Embroider.Common.DesignFormats
 			//log.DebugFormat("Header string: {0}", pesHeader);
 			if (pesHeader != "#PES") throw new FileLoadException("The specified file is not a valid PES file.", _filePath);
 			
-			//_pesVersion = new string(pesData.ReadChars(4));
+			pesVersion = new string(pesData.ReadChars(4));
 			//log.DebugFormat("Pes version: {0}", _pesVersion);
 			
 			uint pecStart = pesData.ReadUInt32();
@@ -224,8 +232,10 @@ namespace Embroider.Common.DesignFormats
 			pesData.Close();
 		}
 		
-		public void ToSvg(Stream s)
+		public byte[] ToSvg()
 		{
+			byte[] rtn;
+			MemoryStream s = new MemoryStream(0);
 			StreamWriter sw = new StreamWriter(s);
 			//log.Debug("Writing svg header.");
 			sw.WriteLine(@"<?xml version=""1.0""?>");
@@ -277,7 +287,13 @@ namespace Embroider.Common.DesignFormats
 			}
 			//log.Debug("Closing svg file.");
 			sw.WriteLine("</svg>");
+			sw.Flush();
+			rtn = s.GetBuffer();
 			sw.Close();
+			sw.Dispose();
+			s.Close();
+			s.Dispose();
+			return rtn;
 		}
 		
 	}
