@@ -25,7 +25,6 @@ namespace Embroidr.UI
 		public static readonly ILog log = LogManager.GetLogger(typeof(MainWindow));
 		IndexFile index = null;
 		Gtk.NodeStore pesStore = null;
-		private List<IDesignFormat> availableFormats;
 		//PesFile pes = null;
 	//	Gtk.TextView txtOutput;
 	//	Gtk.FileChooserButton btnFile;
@@ -33,8 +32,6 @@ namespace Embroidr.UI
 		public MainWindow (): base (Gtk.WindowType.Toplevel)
 		{
 			Build ();
-			
-			availableFormats = new List<IDesignFormat>();
 			
 			if (Directory.Exists(Configuration.DesignFormatsPath))
 			{
@@ -47,33 +44,37 @@ namespace Embroidr.UI
 					{
 						if(t.GetInterface("IDesignFormat") != null)
 						{
-							if(t.GetCustomAttributes(typeof(DesignFormatAttribute), false).Length == 1)
+							object[] customAttributes = t.GetCustomAttributes(typeof(DesignFormatAttribute), false);
+							if(customAttributes.Length == 1)
 							{
-								log.InfoFormat("Loaded design format {0}", f);
+								DesignFormatAttribute dfa = (DesignFormatAttribute)customAttributes[0];
+								log.InfoFormat("Loaded design format {0}", dfa.Name);
 								
-								availableFormats.Add((IDesignFormat)Activator.CreateInstance(t));
+								DesignFormat df = new DesignFormat(
+								                                   dfa.Name, 
+								                                   dfa.Description, 
+								                                   dfa.FileExtensions, 
+								                                   dfa.fileHeader,
+								                                   (IDesignFormat)Activator.CreateInstance(t));
+								
+								FileManager.AvailableFormats.Add(df);  
 							}
 						}
 					}
 				}
 			}
-			
-			object[] attributes = availableFormats[0].GetType().GetCustomAttributes(false);
-			foreach(DesignFormatAttribute dfa in attributes)
-			{
-				log.InfoFormat("Attribute: {0}", dfa.Name);
-			}
-			
+					
 			pesView.AppendColumn("Display", new Gtk.CellRendererPixbuf(), "pixbuf" , 0);
-			pesView.AppendColumn("Name", new Gtk.CellRendererText(), "text", 1);
-			
+			pesView.AppendColumn("Name", new Gtk.CellRendererText(), "text", 1);			
 			pesView.ShowAll();		
 			pesView.HeadersVisible = true;
-			//pesView.v
+			pesView.BorderWidth = 2;
+			pesView.EnableGridLines = TreeViewGridLines.Horizontal;
 			pesStore = new Gtk.NodeStore(typeof(PesFile));
-
 			
 			index = FileManager.OpenIndexFile(Configuration.IndexFilePath);
+			
+			FileManager.RefreshIndexFile(Configuration.RepositoryPath.Split('|'), ref index);
 			
 			loadDisplay();
 		}
@@ -102,7 +103,7 @@ namespace Embroidr.UI
 		{
 			if (index != null)
 			{
-				FileManager.refreshIndexFile(Configuration.RepositoryPath.Split(';'), ref index);
+				FileManager.RefreshIndexFile(Configuration.RepositoryPath.Split(';'), ref index);
 				FileManager.SaveIndexFile(index, Configuration.IndexFilePath);
 			}
 		}
@@ -116,28 +117,14 @@ namespace Embroidr.UI
 				{
 					if (f.Status == FileStatus.InLibrary)
 					{
-						log.DebugFormat("Loading file {0}.", f.FilePath);
-						int w, h;
-						w = h = 255;
-						availableFormats[0].LoadFromFile(f.FilePath);
-						byte[] svgData = availableFormats[0].ToSvg();
-						log.DebugFormat("Svg data length {0} bytes.", svgData.Length);
-						//Stream s = new MemoryStream(svgData);
-						Stream s = new FileStream(@"/home/brian/patterns/svg/bluebird_blossoms.svg", FileMode.Open);
-						Gdk.Pixbuf icon = Rsvg.Pixbuf.FromFile(@"/home/brian/patterns/svg/bluebird_blossoms.svg");
-						if (icon.Height > icon.Width)
-							w = (icon.Width * 255) / icon.Height;
-						else
-							h = (icon.Height * 255) / icon.Width;
-								
-						icon = icon.ScaleSimple(w, h, Gdk.InterpType.Bilinear);
-						log.DebugFormat("Icon size {0} x {1}", w, h);
-						
-						log.DebugFormat("Loaded file {0}. Adding to node view.", availableFormats[0].FileName);
+						log.DebugFormat("Loading file {0}.", f.SvgPath);
+						Gdk.Pixbuf icon = Rsvg.Pixbuf.FromFileAtMaxSize(f.SvgPath, 128, 128);
+						log.DebugFormat("Loaded file {0}. Adding to node view.", f.FileName);
+						log.DebugFormat("Size of pixbuf {0}x{1}", icon.Width, icon.Height);
 						if (pesStore != null)
 						{					
-							pesStore.AddNode(new PesFile(icon, availableFormats[0].DesignName));
-						}
+							pesStore.AddNode(new PesFile(icon, f.FileName + "\n" + "Test"));
+						}					
 					}
 				}
 				pesView.NodeStore = pesStore;

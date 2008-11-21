@@ -14,9 +14,10 @@ using Embroidr.Common;
 
 namespace Embroider.Common.DesignFormats
 {	
-	[DesignFormatAttribute("PES File", new byte[]{23, 50, 45, 53}, new string[]{"pes"})]		
+	[DesignFormatAttribute("PES File", new byte[]{23, 50, 45, 53}, new string[]{".pes"})]		
 	public class Pes : IDesignFormat
 	{
+		private List<ThreadColor> _availableColors;
 		private int _xOffset = 0;
 		private int _yOffset = 0;
 		
@@ -34,7 +35,6 @@ namespace Embroider.Common.DesignFormats
 		{
 			get
 			{
-				//TODO: Create a proper exception.
 				if (!File.Exists(_filePath)) throw new FileNotFoundException("Pes file wasn't found", _filePath);
 				FileInfo fi = new FileInfo(_filePath);
 				return fi.Name;
@@ -93,6 +93,71 @@ namespace Embroider.Common.DesignFormats
 		{
 			_threadColors = new List<ThreadColor>();
 			_stitchBlocks = new List<StitchBlock>();
+			_availableColors = new List<ThreadColor>(63);
+			_availableColors.Add(new ThreadColor("Prussian Blue", 14, 31, 124));
+			_availableColors.Add(new ThreadColor("Blue", 10, 85, 163));
+			_availableColors.Add(new ThreadColor("Teal Green", 48, 135, 119));
+			_availableColors.Add(new ThreadColor("Cornflower Blue", 75, 107, 175));
+			_availableColors.Add(new ThreadColor("Red", 237, 23, 31));
+			_availableColors.Add(new ThreadColor("6", 209, 92, 0));
+			_availableColors.Add(new ThreadColor("Magenta", 145, 54, 151));
+			_availableColors.Add(new ThreadColor("Light Lilac", 228, 154, 203));
+			_availableColors.Add(new ThreadColor("Lilac", 145, 95, 172));
+			_availableColors.Add(new ThreadColor("Mint Green", 157, 214, 125));
+			_availableColors.Add(new ThreadColor("Deep Gold", 232, 169, 0));
+			_availableColors.Add(new ThreadColor("Orange", 254, 186, 53));
+			_availableColors.Add(new ThreadColor("Yellow", 255, 255, 0));
+			_availableColors.Add(new ThreadColor("Lime Green", 112, 188, 31));
+			_availableColors.Add(new ThreadColor("15", 145, 95, 172));
+			_availableColors.Add(new ThreadColor("Silver", 168, 168, 168));
+			_availableColors.Add(new ThreadColor("17", 123, 111, 0));
+			_availableColors.Add(new ThreadColor("Cream Brown", 255, 255, 179));
+			_availableColors.Add(new ThreadColor("Pewter", 79, 85, 86));
+			_availableColors.Add(new ThreadColor("Black", 0, 0, 0));
+			_availableColors.Add(new ThreadColor("21", 11, 61, 145));
+			_availableColors.Add(new ThreadColor("22", 119, 1, 118));
+			_availableColors.Add(new ThreadColor("Dark Gray", 41, 49, 51));
+			_availableColors.Add(new ThreadColor("Dark Brown", 42, 19, 1));
+			_availableColors.Add(new ThreadColor("Deep Rose", 246, 74, 138));
+			_availableColors.Add(new ThreadColor("Light Brown", 178, 118, 36));
+			_availableColors.Add(new ThreadColor("Salmon Pink", 252, 187, 196));
+			_availableColors.Add(new ThreadColor("Vermilion", 254, 55, 15));
+			_availableColors.Add(new ThreadColor("White", 240, 240, 240));
+			_availableColors.Add(new ThreadColor("30", 106, 28, 138));
+			_availableColors.Add(new ThreadColor("31", 168, 221, 196));
+			_availableColors.Add(new ThreadColor("Sky Blue", 37, 132, 187));
+			_availableColors.Add(new ThreadColor("33", 254, 179, 67));
+			_availableColors.Add(new ThreadColor("34", 255, 240, 141));
+			_availableColors.Add(new ThreadColor("35", 208, 166, 96));
+			_availableColors.Add(new ThreadColor("Clay Brown", 209, 84, 0));
+			_availableColors.Add(new ThreadColor("37", 102, 186, 73));
+			_availableColors.Add(new ThreadColor("38", 19, 74, 70));
+			_availableColors.Add(new ThreadColor("39", 135, 135, 135));
+			_availableColors.Add(new ThreadColor("40", 216, 202, 198));
+			_availableColors.Add(new ThreadColor("41", 67, 86, 7));
+			_availableColors.Add(new ThreadColor("Linen", 254, 227, 197));
+			_availableColors.Add(new ThreadColor("Pink", 249, 147, 188));
+			_availableColors.Add(new ThreadColor("44", 0, 56, 34));
+			_availableColors.Add(new ThreadColor("45", 178, 175, 212));
+			_availableColors.Add(new ThreadColor("46", 104, 106, 176));
+			_availableColors.Add(new ThreadColor("47", 239, 227, 185));
+			_availableColors.Add(new ThreadColor("Carmine", 247, 56, 102));
+			_availableColors.Add(new ThreadColor("49", 181, 76, 100));
+			_availableColors.Add(new ThreadColor("50", 19, 43, 26));
+			_availableColors.Add(new ThreadColor("51", 199, 1, 85));
+			_availableColors.Add(new ThreadColor("Tangerine", 254, 158, 50));
+			_availableColors.Add(new ThreadColor("Light Blue", 168, 222, 235));
+			_availableColors.Add(new ThreadColor("Emerald Green", 0, 103, 26));
+			_availableColors.Add(new ThreadColor("55", 78, 41, 144));
+			_availableColors.Add(new ThreadColor("Moss Green", 47, 126, 32));
+			_availableColors.Add(new ThreadColor("57", 253, 217, 222));
+			_availableColors.Add(new ThreadColor("58", 255, 217, 17));
+			_availableColors.Add(new ThreadColor("59", 9, 91, 166));
+			_availableColors.Add(new ThreadColor("60", 240, 249, 112));
+			_availableColors.Add(new ThreadColor("Fresh Green", 227, 243, 91));
+			_availableColors.Add(new ThreadColor("62", 255, 200, 100));
+			_availableColors.Add(new ThreadColor("63", 255, 200, 150));
+			_availableColors.Add(new ThreadColor("64", 255, 200, 200));
 		}
 		
 		public void LoadFromFile(string path)
@@ -132,9 +197,12 @@ namespace Embroider.Common.DesignFormats
 			//log.Info("Reading color data...");
 			for (int i = 0; i < colorCount; i++)
 			{
-				//TODO: Read the colors
 				int colorIndex = pesData.ReadByte();
-				_threadColors.Add(new ThreadColor("Black", 0, 0, 0));
+				colorIndex--;
+				if (colorIndex > 63 || colorIndex < 0)
+					_threadColors.Add(_availableColors[15]);
+				else
+					_threadColors.Add(_availableColors[colorIndex]);
 			}
 			
 			pesData.BaseStream.Position = pecStart + 514;
@@ -232,68 +300,63 @@ namespace Embroider.Common.DesignFormats
 			pesData.Close();
 		}
 		
-		public byte[] ToSvg()
+		public void ToSvg(string path)
 		{
-			byte[] rtn;
-			MemoryStream s = new MemoryStream(0);
-			StreamWriter sw = new StreamWriter(s);
-			//log.Debug("Writing svg header.");
-			sw.WriteLine(@"<?xml version=""1.0""?>");
-			sw.WriteLine(@"<!DOCTYPE svg PUBLIC ""-//W3C//DTD SVG 1.1//EN"" ""http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd"">");
-			sw.WriteLine(@"<svg xmlns=""http://www.w3.org/2000/svg"" version=""1.1"" width=""{0}"" height=""{1}"">",
-			             this.PixelWidth, this.PixelHeight);			
-			int cx = 0;
-			int cj = 0;
-			bool jmp = true;
-			bool tag = false;
-			foreach (StitchBlock blk in this.StitchBlocks)
+			using (StreamWriter sw = new StreamWriter(path, false, System.Text.Encoding.Default))
 			{
-				cx++;
-				foreach (Stitch stitch in blk.Stitches)
+				sw.NewLine = Environment.NewLine;
+				//log.Debug("Writing svg header.");
+				sw.WriteLine("<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\"?>");
+				//sw.WriteLine(@"<!DOCTYPE svg PUBLIC ""-//W3C//DTD SVG 1.1//EN"" ""http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd"">");
+				sw.WriteLine("<svg xmlns=\"http://www.w3.org/2000/svg\" version=\"1.1\" width=\"{0}\" height=\"{1}\">",
+				             this.PixelWidth, this.PixelHeight);			
+				int cx = 0;
+				int cj = 0;
+				bool jmp = true;
+				bool tag = false;
+				foreach (StitchBlock blk in this.StitchBlocks)
 				{
-					if (stitch.StitchType == StitchType.Jump)
+					cx++;
+					foreach (Stitch stitch in blk.Stitches)
 					{
-						cj++;
-						jmp = true;
-						continue;
-					}
-					else if (stitch.StitchType == StitchType.Normal)
-					{
-						if (jmp)
+						if (stitch.StitchType == StitchType.Jump)
 						{
-							if (tag) sw.WriteLine(@"""/>");
-							//log.DebugFormat("Writing path {0}", cx);
-							sw.WriteLine(@"    <path id=""Block{0}Jump{1}""", cx, cj);				
-							sw.WriteLine(@"        fill=""none""");
-							sw.WriteLine(@"        stroke=""#{0:X2}{1:X2}{2:X2}""", 
-							             blk.BlockColor.Color.R,
-							             blk.BlockColor.Color.G,
-							             blk.BlockColor.Color.B);
-							sw.WriteLine(@"{0}{0}stroke-width=""2px""", "\t");
-							sw.Write(@"{0}{0}d=""M ", "\t");
-							sw.Write("{0} {1} L ", stitch.StitchPoint.X + _xOffset, stitch.StitchPoint.Y + _yOffset);
-							tag = true;
-							jmp = false;
+							cj++;
+							jmp = true;
+							continue;
 						}
-						else
+						else if (stitch.StitchType == StitchType.Normal)
 						{
-							sw.Write("{0} {1} ", stitch.StitchPoint.X + _xOffset, stitch.StitchPoint.Y + _yOffset);
+							if (jmp)
+							{
+								if (tag) sw.WriteLine("\"/>");
+								//log.DebugFormat("Writing path {0}", cx);
+								sw.WriteLine("    <path id=\"Block{0}Jump{1}\"", cx, cj);				
+								sw.WriteLine("        fill=\"none\"");
+								sw.WriteLine("        stroke=\"#{0:X2}{1:X2}{2:X2}\"", 
+								             blk.BlockColor.Color.R,
+								             blk.BlockColor.Color.G,
+								             blk.BlockColor.Color.B);
+								sw.WriteLine("{0}{0}stroke-width=\"2px\"", "\t");
+								sw.Write("{0}{0}d=\"M ", "\t");
+								sw.Write("{0} {1} L ", stitch.StitchPoint.X + _xOffset, stitch.StitchPoint.Y + _yOffset);
+								tag = true;
+								jmp = false;
+							}
+							else
+							{
+								sw.Write("{0} {1} ", stitch.StitchPoint.X + _xOffset, stitch.StitchPoint.Y + _yOffset);
+							}
 						}
 					}
+					sw.WriteLine("\" />");
+					tag = false;
+					jmp = true;
 				}
-				sw.WriteLine(@""" />");
-				tag = false;
-				jmp = true;
+				//log.Debug("Closing svg file.");
+				sw.WriteLine("</svg>");					
+				sw.Flush();
 			}
-			//log.Debug("Closing svg file.");
-			sw.WriteLine("</svg>");
-			sw.Flush();
-			rtn = s.GetBuffer();
-			sw.Close();
-			sw.Dispose();
-			s.Close();
-			s.Dispose();
-			return rtn;
 		}
 		
 	}

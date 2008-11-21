@@ -73,6 +73,6 @@ namespace Embroidr.Common
 		/// <param name="s">
 		/// A <see cref="Stream"/> to write the svg markup to.
 		/// </param>
-		byte[] ToSvg();
+		void ToSvg(string path);
 	}	
 }

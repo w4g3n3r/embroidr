@@ -11,6 +11,7 @@ using System.Xml;
 using System.Xml.Serialization;
 using System.Configuration;
 using System.Collections;
+using System.Collections.Generic;
 using System.Security.Cryptography;
 using System.Text;
 
@@ -22,6 +23,7 @@ namespace Embroidr.IO
 	public static class FileManager
 	{
 		public static readonly ILog log = LogManager.GetLogger(typeof(FileManager));
+		public static List<DesignFormat> AvailableFormats = new List<DesignFormat>();
 		/// <summary>
 		/// Deserializes the index file into an IndexFile object.
 		/// </summary>
@@ -175,9 +177,9 @@ namespace Embroidr.IO
 		//  - Initial version of this function will only support pes files.
 		//  - Need to generate display icons in this step.
 		//  - Add error checking... refactor.
-		public static void refreshIndexFile(string[] paths, ref IndexFile index)
+		public static void RefreshIndexFile(string[] paths, ref IndexFile index)
 		{
-			throw new NotImplementedException("The function refreshIndexFile is not in a finished state.");
+			//throw new NotImplementedException("The function refreshIndexFile is not in a finished state.");
 			Hashtable fileLib = new Hashtable();
 			log.Info("Refreshing index file.");
 			foreach (DataFile f in index.DataFiles)
@@ -195,39 +197,57 @@ namespace Embroidr.IO
 				if (Directory.Exists(path))
 				{
 					log.DebugFormat("Scanning: {0}", path);
-					string[] files = Directory.GetFiles(path, "*.pes", SearchOption.AllDirectories);
+					string[] files = Directory.GetFiles(path, "*.*", SearchOption.AllDirectories);
 					foreach (string file in files)
 					{
 						bool isDupe = false;
 						FileInfo fi = new FileInfo(file);
-						if (file.EndsWith(".pes"))
+						
+						log.DebugFormat("Looking at file {0}", fi.Name);
+						
+						foreach (DesignFormat df in FileManager.AvailableFormats)
 						{
-							log.DebugFormat("Hashing file: {0}", file);
-							string hash = md5(file);
-							log.Debug(hash);
-							DataFile newDf = new DataFile(fi.Name, file);
-							newDf.FileHash = hash;
-							
-							if (fileLib.ContainsKey(hash))
+							if (df.Equals(file))
 							{
-								log.DebugFormat("Found existing hash: {0}", hash);
-								DataFile f = (DataFile)fileLib[hash];
-								log.DebugFormat("Existing hash belongs to: {0}", f.FilePath);
-								if (f.FilePath == file) continue;
-								log.Debug("File paths are different.");
-								newDf.Status = FileStatus.Duplicate;	
-								isDupe = true;
+								log.DebugFormat("The file {0} is a {1}", file, df.Name);
+								
+								log.DebugFormat("Hashing file: {0}", file);
+								string hash = md5(file);
+								log.Debug(hash);
+								DataFile newDf = new DataFile(fi.Name, file);
+								newDf.FileHash = hash;
+								
+								if (fileLib.ContainsKey(hash))
+								{
+									log.DebugFormat("Found existing hash: {0}", hash);
+									DataFile f = (DataFile)fileLib[hash];
+									log.DebugFormat("Existing hash belongs to: {0}", f.FilePath);
+									if (f.FilePath == file) continue;
+									log.Debug("File paths are different.");
+									newDf.Status = FileStatus.Duplicate;	
+									isDupe = true;
+								}
+								else
+									newDf.Status = FileStatus.InLibrary;
+
+								if (!isDupe && newDf.SvgPath == null)
+								{
+									df.Format.LoadFromFile(file);
+									string svgPath = Path.Combine(Embroidr.UI.Configuration.SvgPath, fi.Name);
+									svgPath += ".svg";
+									df.Format.ToSvg(svgPath);
+									newDf.SvgPath = svgPath;									
+								}
+								
+								log.DebugFormat("Adding new file: {0}", fi.Name);
+								index.DataFiles.Add(newDf);
+								if (!isDupe) fileLib.Add(hash, newDf);		
 							}
-							else
-								newDf.Status = FileStatus.InLibrary;
-							
-							log.DebugFormat("Adding new file: {0}", fi.Name);
-							index.DataFiles.Add(newDf);
-							if (!isDupe) fileLib.Add(hash, newDf);							
 						}
 					}
 				}
 			}
+			SaveIndexFile(index, Embroidr.UI.Configuration.IndexFilePath);
 		}
 		
 		//TODO: Add error checking to FileManager.md5 method.
