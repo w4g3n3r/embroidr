@@ -11,7 +11,6 @@ using System.Runtime.InteropServices;
 using System.Collections.Generic;
 using Gtk;
 using Gdk;
-//using Embroidery.Formats.Pes;
 using Embroidr.Common;
 using Embroidr.IO;
 using Cairo;
@@ -25,9 +24,6 @@ namespace Embroidr.UI
 		public static readonly ILog log = LogManager.GetLogger(typeof(MainWindow));
 		IndexFile index = null;
 		Gtk.NodeStore pesStore = null;
-		//PesFile pes = null;
-	//	Gtk.TextView txtOutput;
-	//	Gtk.FileChooserButton btnFile;
 		
 		public MainWindow (): base (Gtk.WindowType.Toplevel)
 		{
@@ -74,6 +70,8 @@ namespace Embroidr.UI
 			
 			index = FileManager.OpenIndexFile(Configuration.IndexFilePath);
 			
+			FileManager.RefreshIndexFile(ref index);
+			
 			loadDisplay();
 		}
 		
@@ -88,7 +86,7 @@ namespace Embroidr.UI
 			log.Debug("OnFindActionActivated event fired");
 			
 			if (index != null)
-				FileManager.RefreshIndexFile(Configuration.RepositoryPath.Split('|'), ref index);
+				FileManager.UpdateIndexFile(Configuration.RepositoryPath.Split('|'), ref index);
 			
 			loadDisplay();
 		}
@@ -164,54 +162,3 @@ namespace Embroidr.UI
 		
 	}
 }
-
-//	protected virtual void OnBtnFileSelectionChanged (object sender, System.EventArgs e)
-//	{
-//		StringBuilder sb = new StringBuilder();
-//		int cx = 0;
-//		
-//		log.DebugFormat("Selected file: {0}", btnFile.Filename);
-//		pes = new PesFile(btnFile.Filename);
-//
-//		sb.AppendLine(pes.FilePath);
-//		sb.AppendLine(pes.PesVersion);
-//		
-//		log.Debug("Reading stitch blocks.");
-//		foreach (StitchBlock blk in pes.StitchBlocks)
-//		{
-//			cx++;
-//			log.DebugFormat("Reading stitch block {0} color {1} stitches {2}",
-//			        cx, blk.BlockColor.Name, blk.Stitches.Count);
-//			sb.AppendLine("Stitch block: " + blk.BlockColor.Name);
-//			sb.AppendLine("\tStitches: " + blk.Stitches.Count.ToString());
-//		}
-//		//txtOutput.Buffer.SetText(sb.ToString());
-//	}
-//
-//	protected virtual void OnBtnToSvgClicked (object sender, System.EventArgs e)
-//	{
-//		if (pes != null)
-//		{
-//			FileStream s = null;
-//			if (File.Exists("./test.svg"))
-//			{
-//				log.Debug("Truncating existing svg");
-//				s = new FileStream("./test.svg", FileMode.Truncate);
-//			}
-//			else
-//			{
-//				log.Debug("Creating new svg.");
-//				s = new FileStream("./test.svg", FileMode.Create);
-//			}
-//			pes.ToSvg(s);
-//			s.Close();
-//			Gdk.Pixbuf img = Rsvg.Tool.PixbufFromFileAtMaxSize("./test.svg", 128, 128);
-//			img.Save("./test.png", "png");
-//			img.RenderToDrawable(da.GdkWindow,
-//			                     Gtk.Gc.Get(24, Rgb.Colormap, GCValues.Zero, GCValuesMask.Background),
-//			                     0, 0, 0, 0, img.Width, img.Height, RgbDither.Normal, 0, 0);
-//			img.Dispose();
-//			//h.Close();
-//			
-//		}
-//	}

@@ -1,17 +1,22 @@
 ﻿<UserCombinePreferences version="1.0" filename="/home/brian/Documents/code/embroidr/src/Embroidr.mds">
   <Files>
     <File name="Welcome" />
-    <File name="Embroidr/UI/MainWindow.cs" line="127" column="9" />
-    <File name="Embroidr/UI/app.config" line="32" column="53" />
+    <File name="Embroidr/UI/MainWindow.cs" line="133" column="6" />
+    <File name="Embroidr/IO/FileManager.cs" line="262" column="22" />
+    <File name="Embroidr/IO/IndexFile.cs" line="61" column="45" />
   </Files>
   <Views>
     <ViewMemento id="ProjectPad">
       <Node expanded="True">
         <Node name="Embroidr" expanded="True">
-          <Node name="IO" expanded="True">
-            <Node name="New Folder" selected="True" />
+          <Node name="IO" expanded="True" />
+          <Node name="UI" expanded="True">
+            <Node name="MainWindow.cs" selected="True" />
           </Node>
-          <Node name="UI" expanded="True" />
+        </Node>
+        <Node name="Embroidr.Common" expanded="True" />
+        <Node name="Pes" expanded="True">
+          <Node name="References" expanded="True" />
         </Node>
       </Node>
     </ViewMemento>

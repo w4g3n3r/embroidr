@@ -14,6 +14,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Security.Cryptography;
 using System.Text;
+using Embroidr.Common;
 
 namespace Embroidr.IO
 {	
@@ -172,59 +173,72 @@ namespace Embroidr.IO
 			throw new IOException("The index file stream could not be written to.");			
 		}
 		
-		//TODO: Finish refreshIndexFile
-		//  - Duplicates get added to the index each time this function runs.
-		//  - Initial version of this function will only support pes files.
-		//  - Need to generate display icons in this step.
-		//  - Add error checking... refactor.
-		public static void RefreshIndexFile(string[] paths, ref IndexFile index)
+		public static Hashtable RefreshIndexFile(ref IndexFile index)
 		{
-			//throw new NotImplementedException("The function refreshIndexFile is not in a finished state.");
+			if (index == null) throw new ArgumentNullException("index");
+			
 			Hashtable fileLib = new Hashtable();
-			log.Info("Refreshing index file.");
+			log.Info("Removing deleted files from the index.");
 			foreach (DataFile f in index.DataFiles)
 			{
 				if (!fileLib.ContainsKey(f.FileHash)) fileLib.Add(f.FileHash, f);
 				if (!File.Exists(f.FilePath) && f.Status != FileStatus.Deleted)
 				{
-					log.DebugFormat("Existing file has been removed: {0}", f.FilePath);
+					log.DebugFormat("Marking file as deleted in the index: {0}", f.FilePath);
 					f.Status = FileStatus.Deleted;
 				}
+				else
+				{
+					if (f.SvgPath == null || (f.SvgPath != null && !File.Exists(f.SvgPath)))
+						f.SvgPath = createSvg(f.FilePath);
+					
+					if (f.IconPath == null || (f.IconPath != null && !File.Exists(f.IconPath)))									
+						f.IconPath = createIcon(f.SvgPath);
+				}
 			}
+			return fileLib;
+		}
+		
+		public static void UpdateIndexFile(string[] paths, ref IndexFile index)
+		{
+			if (paths == null) throw new ArgumentNullException("paths");
+			if (index == null) throw new ArgumentNullException("index");
+			
+			log.Info("Refreshing index file.");
+			Hashtable fileLib = RefreshIndexFile(ref index);
+			
 			foreach (string path in paths)
 			{
-				log.Info("Scanning folders for new files.");
 				if (Directory.Exists(path))
 				{
 					log.DebugFormat("Scanning: {0}", path);
-					string[] files = Directory.GetFiles(path, "*.*", SearchOption.AllDirectories);
+					string[] files = Directory.GetFiles(path, "*", SearchOption.AllDirectories);
 					foreach (string file in files)
 					{
 						bool isDupe = false;
 						FileInfo fi = new FileInfo(file);
 						
-						log.DebugFormat("Looking at file {0}", fi.Name);
-						
 						foreach (DesignFormat df in FileManager.AvailableFormats)
 						{
-							if (df.Equals(file))
+							if (df.Equals(fi.FullName))
 							{
 								log.DebugFormat("The file {0} is a {1}", file, df.Name);
 								
 								log.DebugFormat("Hashing file: {0}", file);
 								string hash = md5(file);
 								log.Debug(hash);
+								
 								DataFile newFile = null;
 								
-								bool exists = false;
 								if (fileLib.ContainsKey(hash))
 								{
 									isDupe = true;
-									log.DebugFormat("Found existing hash: {0}", hash);
 									newFile = (DataFile)fileLib[hash];
-									log.DebugFormat("Existing hash belongs to: {0}", newFile.FilePath);
+									
+									log.DebugFormat("The hash is already in the index for: {0}", newFile.FilePath);
 									if (newFile.FilePath != fi.FullName)
 									{
+										bool exists = false;
 										foreach (DuplicateFile dupe in newFile.DuplicateFiles)
 										{
 											if (fi.FullName == dupe.FilePath)
@@ -233,44 +247,17 @@ namespace Embroidr.IO
 												break;
 											}
 										}
-										if (!exists)
-											newFile.DuplicateFiles.Add(new DuplicateFile(fi.Name, fi.FullName));
+										if (!exists) newFile.DuplicateFiles.Add(new DuplicateFile(fi.Name, fi.FullName));
 									}
 								}
 								else
 								{
+									log.DebugFormat("Adding new file {0}.", fi.Name);
 									newFile = new DataFile(fi.Name, fi.FullName);
 									newFile.FileHash = hash;
 									newFile.Status = FileStatus.InLibrary;
-								}
-								string svgPath = string.Empty;
-								if (newFile.SvgPath == null)
-								{
-									df.Format.LoadFromFile(file);
-									svgPath = Path.Combine(Embroidr.UI.Configuration.SvgPath, fi.Name);
-									svgPath += ".svg";
-									df.Format.ToSvg(svgPath);
-									newFile.SvgPath = svgPath;
-								}
-								if (newFile.IconPath == null)
-								{
-									Gdk.Pixbuf icon = Rsvg.Pixbuf.FromFileAtMaxSize(svgPath, 255, 255);
-									if (icon != null)
-									{
-										string iconPath = Path.Combine(Embroidr.UI.Configuration.IconPath, fi.Name);
-										iconPath += ".png";
-										icon.Save(iconPath, "png");
-										newFile.IconPath = iconPath;
-									}
-									else
-									{
-										log.DebugFormat("Png could not be created for {0}.", svgPath);
-									}
-								}
-								
-								log.DebugFormat("Adding new file: {0}", fi.Name);
-								if (!isDupe)
-								{
+									newFile.SvgPath = createSvg(df.Format, fi.FullName);
+									newFile.IconPath = createIcon(newFile.SvgPath);
 									index.DataFiles.Add(newFile);
 									fileLib.Add(hash, newFile);
 								}
@@ -294,6 +281,58 @@ namespace Embroidr.IO
 				foreach (byte b in hash) sb.AppendFormat("{0:x2}", b);
 				return sb.ToString();
 			}
+			return string.Empty;
+		}
+		
+		private static string createIcon(string svgPath)
+		{
+			string iconPath = getPathFor(".png", svgPath);
+			Gdk.Pixbuf icon = Rsvg.Pixbuf.FromFileAtMaxSize(svgPath, 255, 255);
+			if (icon != null)
+			{
+				if (File.Exists(iconPath)) File.Delete(iconPath);
+				icon.Save(iconPath, "png");
+			}
+			return iconPath;
+		}
+		
+		private static string createSvg(IDesignFormat f, string designPath)
+		{
+			f.LoadFromFile(designPath);
+			string svgPath = getPathFor(".svg", designPath);
+			
+			if (File.Exists(svgPath)) File.Delete(svgPath);
+			f.ToSvg(svgPath);
+			
+			return svgPath;
+		}
+		
+		private static string createSvg(string designPath)
+		{
+			foreach (DesignFormat df in FileManager.AvailableFormats)
+			{
+				if (df.Equals(designPath)) return createSvg(df.Format, designPath);
+			}
+			return string.Empty;
+		}
+		
+		private static string getPathFor(string fileType, string source)
+		{
+			if (fileType == null || fileType == string.Empty) throw new ArgumentNullException(fileType);
+			if (source == null || source == string.Empty) throw new ArgumentException(source);
+			
+			if (!fileType.StartsWith(".")) fileType = "." + fileType;
+			FileInfo fi = new FileInfo(source);
+			string fileName = fi.Name.Replace(fi.Extension, fileType);
+
+			switch (fileType)
+			{
+			case ".png":
+				return Path.Combine(Embroidr.UI.Configuration.IconPath, fileName);
+			case ".svg":
+				return Path.Combine(Embroidr.UI.Configuration.SvgPath, fileName);
+			}
+			
 			return string.Empty;
 		}
 	}
