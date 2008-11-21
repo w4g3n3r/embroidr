@@ -214,34 +214,66 @@ namespace Embroidr.IO
 								log.DebugFormat("Hashing file: {0}", file);
 								string hash = md5(file);
 								log.Debug(hash);
-								DataFile newDf = new DataFile(fi.Name, file);
-								newDf.FileHash = hash;
+								DataFile newFile = null;
 								
+								bool exists = false;
 								if (fileLib.ContainsKey(hash))
 								{
-									log.DebugFormat("Found existing hash: {0}", hash);
-									DataFile f = (DataFile)fileLib[hash];
-									log.DebugFormat("Existing hash belongs to: {0}", f.FilePath);
-									if (f.FilePath == file) continue;
-									log.Debug("File paths are different.");
-									newDf.Status = FileStatus.Duplicate;	
 									isDupe = true;
+									log.DebugFormat("Found existing hash: {0}", hash);
+									newFile = (DataFile)fileLib[hash];
+									log.DebugFormat("Existing hash belongs to: {0}", newFile.FilePath);
+									if (newFile.FilePath != fi.FullName)
+									{
+										foreach (DuplicateFile dupe in newFile.DuplicateFiles)
+										{
+											if (fi.FullName == dupe.FilePath)
+											{												
+												exists = true;
+												break;
+											}
+										}
+										if (!exists)
+											newFile.DuplicateFiles.Add(new DuplicateFile(fi.Name, fi.FullName));
+									}
 								}
 								else
-									newDf.Status = FileStatus.InLibrary;
-
-								if (!isDupe && newDf.SvgPath == null)
+								{
+									newFile = new DataFile(fi.Name, fi.FullName);
+									newFile.FileHash = hash;
+									newFile.Status = FileStatus.InLibrary;
+								}
+								string svgPath = string.Empty;
+								if (newFile.SvgPath == null)
 								{
 									df.Format.LoadFromFile(file);
-									string svgPath = Path.Combine(Embroidr.UI.Configuration.SvgPath, fi.Name);
+									svgPath = Path.Combine(Embroidr.UI.Configuration.SvgPath, fi.Name);
 									svgPath += ".svg";
 									df.Format.ToSvg(svgPath);
-									newDf.SvgPath = svgPath;									
+									newFile.SvgPath = svgPath;
+								}
+								if (newFile.IconPath == null)
+								{
+									Gdk.Pixbuf icon = Rsvg.Pixbuf.FromFileAtMaxSize(svgPath, 255, 255);
+									if (icon != null)
+									{
+										string iconPath = Path.Combine(Embroidr.UI.Configuration.IconPath, fi.Name);
+										iconPath += ".png";
+										icon.Save(iconPath, "png");
+										newFile.IconPath = iconPath;
+									}
+									else
+									{
+										log.DebugFormat("Png could not be created for {0}.", svgPath);
+									}
 								}
 								
 								log.DebugFormat("Adding new file: {0}", fi.Name);
-								index.DataFiles.Add(newDf);
-								if (!isDupe) fileLib.Add(hash, newDf);		
+								if (!isDupe)
+								{
+									index.DataFiles.Add(newFile);
+									fileLib.Add(hash, newFile);
+								}
 							}
 						}
 					}

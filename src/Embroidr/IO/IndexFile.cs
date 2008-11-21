@@ -18,25 +18,49 @@ namespace Embroidr.IO
         [System.Xml.Serialization.XmlElementAttribute(ElementName="file")]
         public List<DataFile> DataFiles;
     }
-    
-
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="Embroidr.FileManager")]
-    public class DataFile 
+	
+	[System.Xml.Serialization.XmlTypeAttribute(Namespace="Embroidr.FileManager")]
+	public class DuplicateFile
 	{
 		private string _fileName;
-		private string _filePath;
-		private string _fileHash;
-		private string _svgPath;
-		private string _iconPath;
-		private FileStatus _status;
+		[System.Xml.Serialization.XmlAttributeAttribute(AttributeName="name", Namespace="")]
+		public string FileName
+		{
+			get { return _fileName; }
+			set { _fileName = value; }
+		}
 		
-		public DataFile(){}
-		public DataFile(string name, string path)
+		private string _filePath;
+		[System.Xml.Serialization.XmlAttributeAttribute(AttributeName="path", Namespace="")]
+		public string FilePath
+		{
+			get { return _filePath; }
+			set { _filePath = value; }
+		}
+		
+		public DuplicateFile(){}
+		public DuplicateFile(string name, string path)
 		{
 			_fileName = name;
 			_filePath = path;
-		}		
+		}
+	}    
 
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="Embroidr.FileManager")]
+    public class DataFile 
+	{		
+		public DataFile(){}
+		public DataFile(string name, string path)
+		{
+			DuplicateFiles = new List<DuplicateFile>();
+			_fileName = name;
+			_filePath = path;
+		}
+		
+        [System.Xml.Serialization.XmlElementAttribute(ElementName="duplicate")]
+		public List<DuplicateFile> DuplicateFiles;
+
+		private string _fileName;
         [System.Xml.Serialization.XmlAttributeAttribute(AttributeName="name", Namespace="")]
         public string FileName
 		{
@@ -44,6 +68,7 @@ namespace Embroidr.IO
 			set { _fileName = value; }
 		}        
 
+		private string _filePath;
         [System.Xml.Serialization.XmlAttributeAttribute(AttributeName="path", Namespace="")]
         public string FilePath
 		{
@@ -51,6 +76,7 @@ namespace Embroidr.IO
 			set { _filePath = value; }
 		}        
 
+		private string _fileHash;
         [System.Xml.Serialization.XmlAttributeAttribute(AttributeName="md5", Namespace="")]
         public string FileHash
 		{
@@ -58,6 +84,7 @@ namespace Embroidr.IO
 			set { _fileHash = value; }
 		}        
 
+		private string _svgPath;
         [System.Xml.Serialization.XmlAttributeAttribute(AttributeName="svg", Namespace="")]
         public string SvgPath
 		{
@@ -65,6 +92,7 @@ namespace Embroidr.IO
 			set { _svgPath = value; }
 		}        
 
+		private string _iconPath;
         [System.Xml.Serialization.XmlAttributeAttribute(AttributeName="png", Namespace="")]
         public string IconPath
 		{
@@ -72,6 +100,7 @@ namespace Embroidr.IO
 			set { _iconPath = value; }
 		}
 		
+		private FileStatus _status;
 		[System.Xml.Serialization.XmlAttributeAttribute(AttributeName="status", Namespace="")]
 		public FileStatus Status
 		{

@@ -74,8 +74,6 @@ namespace Embroidr.UI
 			
 			index = FileManager.OpenIndexFile(Configuration.IndexFilePath);
 			
-			FileManager.RefreshIndexFile(Configuration.RepositoryPath.Split('|'), ref index);
-			
 			loadDisplay();
 		}
 		
@@ -89,21 +87,18 @@ namespace Embroidr.UI
 		{
 			log.Debug("OnFindActionActivated event fired");
 			
-			if (index != null && index.DataFiles != null)
-			{
-				log.DebugFormat("{0} file(s) loaded.", index.DataFiles.Count);
-				foreach (DataFile f in index.DataFiles)
-				{
-					log.DebugFormat("Path: {0}", f.FilePath);
-				}
-			}
+			if (index != null)
+				FileManager.RefreshIndexFile(Configuration.RepositoryPath.Split('|'), ref index);
+			
+			loadDisplay();
 		}
 
 		protected virtual void OnSaveActionActivated (object sender, System.EventArgs e)
 		{
+			log.Debug("OnSaveActionActivated event fired");
+			
 			if (index != null)
 			{
-				FileManager.RefreshIndexFile(Configuration.RepositoryPath.Split(';'), ref index);
 				FileManager.SaveIndexFile(index, Configuration.IndexFilePath);
 			}
 		}
@@ -117,8 +112,17 @@ namespace Embroidr.UI
 				{
 					if (f.Status == FileStatus.InLibrary)
 					{
-						log.DebugFormat("Loading file {0}.", f.SvgPath);
-						Gdk.Pixbuf icon = Rsvg.Pixbuf.FromFileAtMaxSize(f.SvgPath, 128, 128);
+						log.DebugFormat("Loading file {0}.", f.IconPath);
+						Gdk.Pixbuf icon = new Gdk.Pixbuf(f.IconPath);
+						int w, h;
+						w = h = 128;
+						if (icon.Width < icon.Height)
+							w = (icon.Width * w) / icon.Height;
+						else
+							h = (icon.Height * h) / icon.Width;
+						
+						icon = icon.ScaleSimple(w, h, InterpType.Bilinear);
+							
 						log.DebugFormat("Loaded file {0}. Adding to node view.", f.FileName);
 						log.DebugFormat("Size of pixbuf {0}x{1}", icon.Width, icon.Height);
 						if (pesStore != null)

@@ -11,16 +11,19 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using Embroidr.Common;
+using log4net;
 
 namespace Embroider.Common.DesignFormats
 {	
 	[DesignFormatAttribute("PES File", new byte[]{23, 50, 45, 53}, new string[]{".pes"})]		
 	public class Pes : IDesignFormat
-	{
+	{		
+		public static readonly ILog log = LogManager.GetLogger(typeof(Pes));
+		
 		private List<ThreadColor> _availableColors;
 		private int _xOffset = 0;
 		private int _yOffset = 0;
-		
+				
 		private string _filePath;
 		public string FilePath
 		{
@@ -91,6 +94,7 @@ namespace Embroider.Common.DesignFormats
 		
 		public Pes()
 		{
+			_stitchCount = 0;
 			_threadColors = new List<ThreadColor>();
 			_stitchBlocks = new List<StitchBlock>();
 			_availableColors = new List<ThreadColor>(63);
@@ -171,63 +175,57 @@ namespace Embroider.Common.DesignFormats
 			_filePath = path;
 			string pesVersion;
 			
-			//log.InfoFormat("Reading file: {0}", _filePath);
+			log.InfoFormat("Reading file: {0}", _filePath);
 			BinaryReader pesData = new BinaryReader(File.OpenRead(_filePath));
 			
 			string pesHeader = new string(pesData.ReadChars(4));
-			//log.DebugFormat("Header string: {0}", pesHeader);
+			log.DebugFormat("Header string: {0}", pesHeader);
 			if (pesHeader != "#PES") throw new FileLoadException("The specified file is not a valid PES file.", _filePath);
 			
 			pesVersion = new string(pesData.ReadChars(4));
-			//log.DebugFormat("Pes version: {0}", _pesVersion);
+			log.DebugFormat("Pes version: {0}", pesVersion);
 			
 			uint pecStart = pesData.ReadUInt32();
-			//log.DebugFormat("Pec start: {0}", pecStart);
+			log.DebugFormat("Pec start: {0}", pecStart);
 			
 			pesData.BaseStream.Position = pecStart + 3;
 			
 			_designName = new string(pesData.ReadChars(16));
 			_designName = _designName.Trim();
-			//log.DebugFormat("Internal name: {0}", _internalName);
+			log.DebugFormat("Internal name: {0}", _designName);
 			
 			pesData.BaseStream.Position = pecStart + 48;
 			int colorCount = pesData.ReadByte() + 1;
-			//log.DebugFormat("Color count: {0}", colorCount);
+			log.DebugFormat("Color count: {0}", colorCount);
 			
-			//log.Info("Reading color data...");
+			log.Info("Reading color data...");
 			for (int i = 0; i < colorCount; i++)
 			{
 				int colorIndex = pesData.ReadByte();
-				colorIndex--;
+				colorIndex--;				
 				if (colorIndex > 63 || colorIndex < 0)
 					_threadColors.Add(_availableColors[15]);
-				else
+				else					
 					_threadColors.Add(_availableColors[colorIndex]);
+				log.DebugFormat("Added color {0}", _threadColors[i].Name);
 			}
 			
 			pesData.BaseStream.Position = pecStart + 514;
 			uint pecLength = pesData.ReadUInt16();
 			uint pecEnd = pecStart + 514 + pecLength;
-			//log.DebugFormat("Pec Length: {0}", pecLength);
-			//log.DebugFormat("Pec End: {0}", pecEnd);
+			log.DebugFormat("Pec Length: {0}", pecLength);
+			log.DebugFormat("Pec End: {0}", pecEnd);
 			
-			//pesData.BaseStream.Position = pecStart + 520;
 			_width = pesData.ReadUInt16();
 			_height = pesData.ReadUInt16();
-			//log.DebugFormat("Width: {0}cm", _width);
-			//log.DebugFormat("Height: {0}cm", _height);
 			
 			pesData.BaseStream.Position = pecStart + 532;
 			int bx, by, dx, dy, x, y, mx, my, nx, ny;
 			bx = by = dx = dy = x = y = mx = my = nx = ny = 0;
 			
-			//int x = Convert.ToInt16(_width) / 2;
-			//int y = Convert.ToInt16(_height) / 2;
-			
 			int c = 0;
 			bool jmp = false;
 			StitchBlock sb = new StitchBlock(_threadColors[c]);
-			//log.Info("Reading stitch data...");
 			while(pesData.BaseStream.Position < pecEnd)
 			{
 				bx = pesData.ReadByte();
@@ -288,6 +286,7 @@ namespace Embroider.Common.DesignFormats
 					my = (y > my) ? y : my;
 					StitchType type = (jmp) ? StitchType.Jump : StitchType.Normal;
 					sb.AddStitch(new Stitch(new Point(x, y), type));
+					_stitchCount++;
 					jmp = false;
 					             
 				}
