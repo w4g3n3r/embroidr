@@ -262,6 +262,7 @@ namespace Embroidr.IO
 									fileLib.Add(hash, newFile);
 								}
 							}
+							df.Format.CloseFile();
 						}
 					}
 				}

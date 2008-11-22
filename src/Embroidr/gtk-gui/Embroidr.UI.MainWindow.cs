@@ -39,6 +39,8 @@ namespace Embroidr.UI {
         
         private Gtk.NodeView pesView;
         
+        private Gtk.HScale pixbufSize;
+        
         private Gtk.Statusbar statusbar1;
         
         protected virtual void Build() {
@@ -125,14 +127,31 @@ namespace Embroidr.UI {
             Gtk.Box.BoxChild w10 = ((Gtk.Box.BoxChild)(this.vbox1[this.hpaned2]));
             w10.Position = 2;
             // Container child vbox1.Gtk.Box+BoxChild
+            this.pixbufSize = new Gtk.HScale(null);
+            this.pixbufSize.CanFocus = true;
+            this.pixbufSize.Name = "pixbufSize";
+            this.pixbufSize.Adjustment.Lower = 16;
+            this.pixbufSize.Adjustment.Upper = 255;
+            this.pixbufSize.Adjustment.PageIncrement = 10;
+            this.pixbufSize.Adjustment.StepIncrement = 1;
+            this.pixbufSize.Adjustment.Value = 90;
+            this.pixbufSize.DrawValue = true;
+            this.pixbufSize.Digits = 0;
+            this.pixbufSize.ValuePos = ((Gtk.PositionType)(2));
+            this.vbox1.Add(this.pixbufSize);
+            Gtk.Box.BoxChild w11 = ((Gtk.Box.BoxChild)(this.vbox1[this.pixbufSize]));
+            w11.Position = 3;
+            w11.Expand = false;
+            w11.Fill = false;
+            // Container child vbox1.Gtk.Box+BoxChild
             this.statusbar1 = new Gtk.Statusbar();
             this.statusbar1.Name = "statusbar1";
             this.statusbar1.Spacing = 6;
             this.vbox1.Add(this.statusbar1);
-            Gtk.Box.BoxChild w11 = ((Gtk.Box.BoxChild)(this.vbox1[this.statusbar1]));
-            w11.Position = 3;
-            w11.Expand = false;
-            w11.Fill = false;
+            Gtk.Box.BoxChild w12 = ((Gtk.Box.BoxChild)(this.vbox1[this.statusbar1]));
+            w12.Position = 4;
+            w12.Expand = false;
+            w12.Fill = false;
             this.Add(this.vbox1);
             if ((this.Child != null)) {
                 this.Child.ShowAll();
@@ -143,6 +162,7 @@ namespace Embroidr.UI {
             this.DeleteEvent += new Gtk.DeleteEventHandler(this.OnDeleteEvent);
             this.findAction.Activated += new System.EventHandler(this.OnFindActionActivated);
             this.saveAction.Activated += new System.EventHandler(this.OnSaveActionActivated);
+            this.pixbufSize.ValueChanged += new System.EventHandler(this.OnPixbufSizeValueChanged);
         }
     }
 }

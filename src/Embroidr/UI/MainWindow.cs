@@ -25,6 +25,9 @@ namespace Embroidr.UI
 		IndexFile index = null;
 		Gtk.NodeStore pesStore = null;
 		
+		public event ResizeIconDelegate ResizeIcon;
+		public delegate void ResizeIconDelegate(int size);
+		
 		public MainWindow (): base (Gtk.WindowType.Toplevel)
 		{
 			Build ();
@@ -60,6 +63,7 @@ namespace Embroidr.UI
 				}
 			}
 					
+			pesView.DoubleBuffered = true;
 			pesView.AppendColumn("Display", new Gtk.CellRendererPixbuf(), "pixbuf" , 0);
 			pesView.AppendColumn("Name", new Gtk.CellRendererText(), "text", 1);			
 			pesView.ShowAll();		
@@ -113,7 +117,7 @@ namespace Embroidr.UI
 						log.DebugFormat("Loading file {0}.", f.IconPath);
 						Gdk.Pixbuf icon = new Gdk.Pixbuf(f.IconPath);
 						int w, h;
-						w = h = 128;
+						w = h = 255;
 						if (icon.Width < icon.Height)
 							w = (icon.Width * w) / icon.Height;
 						else
@@ -124,19 +128,29 @@ namespace Embroidr.UI
 						log.DebugFormat("Loaded file {0}. Adding to node view.", f.FileName);
 						log.DebugFormat("Size of pixbuf {0}x{1}", icon.Width, icon.Height);
 						if (pesStore != null)
-						{					
-							pesStore.AddNode(new PesFile(icon, f.FileName + "\n" + "Test"));
+						{				
+							PesFile pf = new PesFile(icon, f.FileName + "\n" + "Test");
+							ResizeIcon += new ResizeIconDelegate(pf.ResizeIcon);								
+							pesStore.AddNode(pf);
 						}					
 					}
 				}
 				pesView.NodeStore = pesStore;
 			}
 		}
+
+		protected virtual void OnPixbufSizeValueChanged (object sender, System.EventArgs e)
+		{			
+			
+			if (ResizeIcon != null) ResizeIcon((int)pixbufSize.Value);
+			pesView.ColumnsAutosize();
+		}
 	}
 	
 	[Gtk.TreeNode(ListOnly=true)]
 	public class PesFile : Gtk.TreeNode
 	{
+		private Gdk.Pixbuf _rootIcon;
 		private Gdk.Pixbuf _icon;
 		private string _name;
 		
@@ -158,6 +172,19 @@ namespace Embroidr.UI
 		{
 			_name = name;
 			_icon = icon;
+			_rootIcon = icon;
+		}
+		
+		public void ResizeIcon(int maxSize)
+		{
+			int w, h;
+			w = h = (int)maxSize;
+			if (_rootIcon.Width > _rootIcon.Height)
+				h = (_rootIcon.Height * w) / _rootIcon.Width;
+			else
+				w = (_rootIcon.Width * h) / _rootIcon.Height;
+			_icon.Dispose();
+			_icon = _rootIcon.ScaleSimple(w, h, InterpType.Bilinear);
 		}
 		
 	}

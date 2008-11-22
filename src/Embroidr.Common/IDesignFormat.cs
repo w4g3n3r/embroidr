@@ -74,5 +74,10 @@ namespace Embroidr.Common
 		/// A <see cref="Stream"/> to write the svg markup to.
 		/// </param>
 		void ToSvg(string path);
+		/// <summary>
+		/// The CloseFile method should put the format object into an empty state. Any file handles should
+		/// be closed.
+		/// </summary>
+		void CloseFile();
 	}	
 }

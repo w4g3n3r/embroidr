@@ -164,6 +164,13 @@ namespace Embroider.Common.DesignFormats
 			_availableColors.Add(new ThreadColor("64", 255, 200, 200));
 		}
 		
+		public void CloseFile()
+		{
+			_stitchCount = 0;
+			_threadColors = new List<ThreadColor>();
+			_stitchBlocks = new List<StitchBlock>();
+		}
+		
 		public void LoadFromFile(string path)
 		{			
 			if (path == null) throw new ArgumentNullException("path");
