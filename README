@@ -1,0 +1,15 @@
+Application: Embroidr
+Author: W4g3n3r
+
+Embroidr hopes to be a friendly file manager for large libraries of digital ebroidery files. 
+
+The initial release will include the following features:
+	-Support for .pes (Brother) files.
+	-Viewing the ebroidery design.
+	-Saving the design as an svg file.
+	-Tagging files for easier management.
+	-Ability to search files.
+	-Automatic file extraction from zip files.
+	-Automatic file indexing.
+	-A plugin api for easily adding more embroidery formats.
+	-Automatic file organization.
