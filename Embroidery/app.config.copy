@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<configuration>
+	<configSections>
+		<section name="pes.config" type="Embroidery.Formats.Pes.Configuration" />
+	</configSections>
+	<pes.config>
+		<threadColors>
+			<color name="White" red="255" green="255" blue="255" />
+			<color name="Black" red="0" green="0" blue="0" />
+		</threadColors>
+	</pes.config>
+</configuration>

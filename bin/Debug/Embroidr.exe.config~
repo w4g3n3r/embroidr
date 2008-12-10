@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8" ?>
+
+<configuration>
+	<configSections>
+		<section name="log4net" type="log4net.Config.Log4NetConfigurationSectionHandler, log4net" />
+		<section name="pes.config" type="Embroidery.Formats.Pes.Configuration, Embroidery" />
+	</configSections>
+	<log4net>
+		<appender name="ConsoleAppender" type="log4net.Appender.ConsoleAppender">
+		    <layout type="log4net.Layout.PatternLayout">
+			<conversionPattern value="%date %-5level %logger [%property{NDC}] - %message%newline" />
+		    </layout>
+		</appender>
+		<appender name="RollingFileAppender" type="log4net.Appender.RollingFileAppender">
+			<file value="log.txt" />
+			<appendToFile value="true" />
+			<rollingStyle value="Size" />
+			<maxSizeRollBackups value="10" />
+			<maximumFileSize value="100KB" />
+			<staticLogFileName value="true" />
+			<layout type="log4net.Layout.PatternLayout">
+				<conversionPattern value="%date %-5level %logger [%property{NDC}] - %message%newline" />
+			</layout>
+		</appender>
+		<root>
+			<level value="ALL" />
+			<appender-ref ref="RollingFileAppender" />
+			<appender-ref ref="ConsoleAppender" />
+		</root>
+	</log4net>
+	<pes.config>
+		<threadColors>
+			<add name="" red="14" green="31" blue="124" />
+			<add name="" red="10" green="85" blue="163" />
+			<add name="" red="48" green="135" blue="119" />
+			<add name="" red="75" green="107" blue="175" />
+			<add name="" red="237" green="23" blue="31" />
+			<add name="" red="209" green="92" blue="0" />
+			<add name="" red="145" green="54" blue="151" />
+			<add name="" red="228" green="154" blue="203" />
+			<add name="" red="145" green="95" blue="172" />
+			<add name="" red="157" green="214" blue="125" />
+			<add name="" red="232" green="169" blue="0" />
+			<add name="" red="254" green="186" blue="53" />
+			<add name="" red="255" green="255" blue="0" />
+			<add name="" red="112" green="188" blue="31" />
+			<add name="" red="145" green="95" blue="172" />
+			<add name="" red="168" green="168" blue="168" />
+			<add name="" red="123" green="111" blue="0" />
+			<add name="" red="255" green="255" blue="179" />
+			<add name="" red="79" green="85" blue="86" />
+			<add name="" red="0" green="0" blue="0" />
+			<add name="" red="11" green="61" blue="145" />
+			<add name="" red="119" green="1" blue="118" />
+			<add name="" red="41" green="49" blue="51" />
+			<add name="" red="42" green="19" blue="1" />
+			<add name="" red="246" green="74" blue="138" />
+			<add name="" red="178" green="118" blue="36" />
+			<add name="" red="252" green="187" blue="196" />
+			<add name="" red="254" green="55" blue="15" />
+			<add name="" red="240" green="240" blue="240" />
+			<add name="" red="106" green="28" blue="138" />
+			<add name="" red="168" green="221" blue="196" />
+			<add name="" red="37" green="132" blue="187" />
+			<add name="" red="254" green="179" blue="67" />
+			<add name="" red="255" green="240" blue="141" />
+			<add name="" red="208" green="166" blue="96" />
+			<add name="" red="209" green="84" blue="0" />
+			<add name="" red="102" green="186" blue="73" />
+			<add name="" red="19" green="74" blue="70" />
+			<add name="" red="135" green="135" blue="135" />
+			<add name="" red="216" green="202" blue="198" />
+			<add name="" red="67" green="86" blue="7" />
+			<add name="" red="254" green="227" blue="197" />
+			<add name="" red="249" green="147" blue="188" />
+			<add name="" red="0" green="56" blue="34" />
+			<add name="" red="178" green="175" blue="212" />
+			<add name="" red="104" green="106" blue="176" />
+			<add name="" red="239" green="227" blue="185" />
+			<add name="" red="247" green="56" blue="102" />
+			<add name="" red="181" green="76" blue="100" />
+			<add name="" red="19" green="43" blue="26" />
+			<add name="" red="199" green="1" blue="85" />
+			<add name="" red="254" green="158" blue="50" />
+			<add name="" red="168" green="222" blue="235" />
+			<add name="" red="0" green="103" blue="26" />
+			<add name="" red="78" green="41" blue="144" />
+			<add name="" red="47" green="126" blue="32" />
+			<add name="" red="253" green="217" blue="222" />
+			<add name="" red="255" green="217" blue="17" />
+			<add name="" red="9" green="91" blue="166" />
+			<add name="" red="240" green="249" blue="112" />
+			<add name="" red="227" green="243" blue="91" />
+			<add name="" red="255" green="200" blue="100" />
+			<add name="" red="255" green="200" blue="150" />
+			<add name="" red="255" green="200" blue="200" />
+		</threadColors>
+	</pes.config>
+</configuration>
