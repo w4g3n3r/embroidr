@@ -1,9 +1,14 @@
 ﻿<UserCombinePreferences version="1.0" filename="/home/brian/Documents/code/embroidr/src/Embroidr.mds">
   <Files>
     <File name="Welcome" />
-    <File name="Embroidr/UI/MainWindow.cs" line="133" column="6" />
-    <File name="Embroidr/IO/FileManager.cs" line="262" column="22" />
+    <File name="Embroidr/UI/MainWindow.cs" line="35" column="58" />
+    <File name="Embroidr/IO/FileManager.cs" line="309" column="6" />
     <File name="Embroidr/IO/IndexFile.cs" line="61" column="45" />
+    <File name="Embroidr/UI/Main.cs" line="43" column="21" />
+    <File name="Embroidr.Common/IDesignFormat.cs" line="45" column="85" />
+    <File name="Embroider.Common.DesignFormats/Pes/Pes.cs" line="25" column="3" />
+    <File name="Embroidr/IO/DesignFormat.cs" line="50" column="29" />
+    <File name="Embroidr/UI/app.config" line="39" column="17" />
   </Files>
   <Views>
     <ViewMemento id="ProjectPad">
@@ -11,24 +16,22 @@
         <Node name="Embroidr" expanded="True">
           <Node name="IO" expanded="True" />
           <Node name="UI" expanded="True">
-            <Node name="MainWindow.cs" selected="True" />
+            <Node name="Main.cs" selected="True" />
           </Node>
         </Node>
         <Node name="Embroidr.Common" expanded="True" />
-        <Node name="Pes" expanded="True">
-          <Node name="References" expanded="True" />
-        </Node>
+        <Node name="Pes" expanded="True" />
       </Node>
     </ViewMemento>
     <ViewMemento id="ClassPad">
-      <Node />
+      <Node expanded="True" />
     </ViewMemento>
     <ViewMemento id="MonoDevelop.NUnit.TestPad">
-      <Node />
+      <Node selected="True" />
     </ViewMemento>
   </Views>
   <Properties>
-    <Property key="ActiveWindow" value="/home/brian/Documents/code/embroidr/src/Embroidr/UI/MainWindow.cs" />
+    <Property key="ActiveWindow" value="/home/brian/Documents/code/embroidr/src/Embroidr/UI/Main.cs" />
     <Property key="ActiveConfiguration" value="Debug" />
   </Properties>
 </UserCombinePreferences>

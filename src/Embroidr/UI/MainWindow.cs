@@ -140,8 +140,7 @@ namespace Embroidr.UI
 		}
 
 		protected virtual void OnPixbufSizeValueChanged (object sender, System.EventArgs e)
-		{			
-			
+		{	
 			if (ResizeIcon != null) ResizeIcon((int)pixbufSize.Value);
 			pesView.ColumnsAutosize();
 		}
@@ -183,7 +182,6 @@ namespace Embroidr.UI
 				h = (_rootIcon.Height * w) / _rootIcon.Width;
 			else
 				w = (_rootIcon.Width * h) / _rootIcon.Height;
-			_icon.Dispose();
 			_icon = _rootIcon.ScaleSimple(w, h, InterpType.Bilinear);
 		}
 		

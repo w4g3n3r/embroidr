@@ -299,20 +299,30 @@ namespace Embroidr.IO
 		
 		private static string createSvg(IDesignFormat f, string designPath)
 		{
-			f.LoadFromFile(designPath);
-			string svgPath = getPathFor(".svg", designPath);
-			
-			if (File.Exists(svgPath)) File.Delete(svgPath);
-			f.ToSvg(svgPath);
-			
-			return svgPath;
+			throw new NotSupportedException("This override if createSvg is no longer supported.");
+//			f.LoadFromFile(designPath);
+//			string svgPath = getPathFor(".svg", designPath);
+//			
+//			if (File.Exists(svgPath)) File.Delete(svgPath);
+//			f.ToSvg(svgPath);
+//			
+//			return svgPath;
 		}
 		
 		private static string createSvg(string designPath)
 		{
 			foreach (DesignFormat df in FileManager.AvailableFormats)
 			{
-				if (df.Equals(designPath)) return createSvg(df.Format, designPath);
+				if (df.Equals(designPath))
+				{
+					df.Format.LoadFromFile(designPath);
+					string svgPath = getPathFor(".svg", designPath);
+			
+					if (File.Exists(svgPath)) File.Delete(svgPath);
+					df.ToSvg(svgPath);
+					
+					return svgPath;
+				}
 			}
 			return string.Empty;
 		}

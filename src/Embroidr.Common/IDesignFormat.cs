@@ -49,6 +49,8 @@ namespace Embroidr.Common
 		/// The PixelHeight property should return the total height of the design in pixels.
 		/// </value>
 		int PixelHeight {get;}
+		int XOffset {get;}
+		int YOffset {get;}
 		/// <value>
 		/// The ThreadColors property should return a generic list of ThreadColors used in the 
 		/// design.
@@ -67,13 +69,6 @@ namespace Embroidr.Common
 		/// A <see cref="System.String"/>
 		/// </param>
 		void LoadFromFile(string path);
-		/// <summary>
-		/// ToSvg should write valid svg markup to the supplied stream.
-		/// </summary>
-		/// <param name="s">
-		/// A <see cref="Stream"/> to write the svg markup to.
-		/// </param>
-		void ToSvg(string path);
 		/// <summary>
 		/// The CloseFile method should put the format object into an empty state. Any file handles should
 		/// be closed.

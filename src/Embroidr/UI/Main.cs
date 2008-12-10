@@ -20,6 +20,8 @@ namespace Embroidr.UI
 			Embroidr.UI.Configuration.DesignFormatsPath = ConfigurationManager.AppSettings["DesignFormatsPath"];
 			Embroidr.UI.Configuration.SvgPath = ConfigurationManager.AppSettings["SvgPath"];
 			Embroidr.UI.Configuration.IconPath = ConfigurationManager.AppSettings["IconPath"];
+			Embroidr.UI.Configuration.IgnoreJumpStitches =
+				(ConfigurationManager.AppSettings["IgnoreJumpStitches"].ToLower() == "true");	
 			Embroidr.UI.Configuration.FormatXmlOutput = 
 				(ConfigurationManager.AppSettings["FormatXmlOutput"].ToLower() == "true");		
 			
@@ -38,5 +40,6 @@ namespace Embroidr.UI
 		public static string DesignFormatsPath = string.Empty;
 		public static string SvgPath = string.Empty;
 		public static string IconPath = string.Empty;
+		public static bool IgnoreJumpStitches = true;
 	}
 }
